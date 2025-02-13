@@ -1,0 +1,35 @@
+{
+    "testimonials": [
+      {
+        "quote": "Azaiki Art Gallery is an exceptional space that brings contemporary art to life. I had the privilege of showcasing my work here, and the experience was unforgettable.",
+        "name": "Jane Doe",
+        "role": "Contemporary Artist",
+        "image": "https://example.com/images/jane_doe.jpg"
+      },
+      {
+        "quote": "The museum's collection is a journey through time and culture. Every exhibit tells a powerful story, and the ambiance is inspiring.",
+        "name": "John Smith",
+        "role": "Art Historian",
+        "image": "https://example.com/images/john_smith.jpg"
+      },
+      {
+        "quote": "Visiting Azaiki Art Gallery was an enlightening experience. The exhibits are curated with such care, and the staff is incredibly knowledgeable and welcoming.",
+        "name": "Emily Williams",
+        "role": "Art Enthusiast",
+        "image": "https://example.com/images/emily_williams.jpg"
+      },
+      {
+        "quote": "As an artist, it was an honor to have my pieces displayed in such a prestigious gallery. The atmosphere and audience were beyond expectations.",
+        "name": "Millicent Osumuo Onuegbu",
+        "role": "Contemporary Artist",
+        "image": "/images/IMG-20250101-WA0022.jpg"
+      },
+      {
+        "quote": "Azaiki Art Gallery and Museum provides an immersive experience where art, history, and culture converge beautifully. It’s a must-visit destination for anyone passionate about art.",
+        "name": "Sophia Brown",
+        "role": "Museum Curator",
+        "image": "https://example.com/images/sophia_brown.jpg"
+      }
+    ]
+  }
+  

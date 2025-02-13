@@ -1,0 +1,53 @@
+{
+    "artists": [
+      {
+        "name": "Ebiye Obuba",
+        "bio": "A master woodcarver known for intricate designs that reflect the stories and traditions of the Ijaw people.",
+        "artworks": [
+          {
+            "title": "Spirit of the Delta",
+            "description": "A sculpture symbolizing the resilience and spirituality of the Niger Delta communities.",
+            "image": "/images/ebiye-spirit.jpg"
+          },
+          {
+            "title": "Ceremonial Mask",
+            "description": "A mask used in traditional festivals to honor ancestors and deities.",
+            "image": "/images/ebiye-mask.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Boma Kalagbor",
+        "bio": "A renowned painter whose works explore the vibrant colors and landscapes of the Niger Delta.",
+        "artworks": [
+          {
+            "title": "Delta Sunrise",
+            "description": "A painting capturing the serene beauty of the Niger Delta at dawn.",
+            "image": "/images/boma-sunrise.jpg"
+          },
+          {
+            "title": "Market Day",
+            "description": "A lively depiction of a bustling market scene in the Niger Delta.",
+            "image": "/images/boma-market.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Tari Amasi",
+        "bio": "An innovative beadwork artist who combines traditional techniques with modern aesthetics.",
+        "artworks": [
+          {
+            "title": "Ceremonial Necklace",
+            "description": "A handcrafted necklace featuring intricate bead patterns used in royal ceremonies.",
+            "image": "/images/tari-necklace.jpg"
+          },
+          {
+            "title": "Cultural Tapestry",
+            "description": "A large beadwork tapestry depicting the unity of the Niger Delta tribes.",
+            "image": "/images/tari-tapestry.jpg"
+          }
+        ]
+      }
+    ]
+  }
+  

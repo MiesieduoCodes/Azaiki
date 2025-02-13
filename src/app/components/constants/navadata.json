@@ -1,0 +1,72 @@
+{
+    "user": {
+      "name": "Contact Us",
+      "url": "/contact"
+    },
+    "teams": [
+      {
+        "name": "Azaiki Art Gallery & Museum",
+        "url": "/"
+      }
+    ],
+    "navMain": [
+      {
+        "title": "Art Gallery",
+        "url": "#",
+        "icon": "Palette",
+        "isActive": true,
+        "items": [
+          { "title": "Digital Art", "url": "/digital" },
+          { "title": "Contemporary Arts", "url": "/contemporary" },
+          { "title": "General", "url": "/all" },
+          { "title": "Sculptures", "url": "/sculptures" },
+          { "title": "Niger Delta Arts", "url": "/niger-delta" },
+          { "title": "African Arts", "url": "/african" }
+        ]
+      },
+      {
+        "title": "Museum",
+        "url": "#",
+        "icon": "RollerCoaster",
+        "items": [
+          { "title": "Museum Of African Arts", "url": "/african-museum" },
+          { "title": "Museum Of Niger Delta", "url": "niger-museum" },
+          { "title": "Letter From The President, African Museum Association", "url": "/affirmation" }
+        ]
+      },
+      {
+        "title": "Artists",
+        "url": "#",
+        "icon": "Brush",
+        "items": [
+          {
+            "title": "Millicent Osumuo",
+            "url": "/artists?id=3",
+            "avatar": "/images/IMG-20250101-WA0022.jpg"
+          },
+          {
+            "title": "Another Artist",
+            "url": "/artists?id=2",
+            "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg"
+          },
+          {
+            "title": "...View More",
+            "url": "/artisans"
+          }
+        ]
+      },
+      {
+        "title": "More From Azaiki",
+        "url": "#",
+        "icon": "Palette",
+        "isActive": true,
+        "items": [
+          { "title": "About The Professor", "url": "/prof" },
+          { "title": "Azaiki Foundation", "url": "#" },
+          { "title": "Azaiki Public Library", "url": "#" },
+          { "title": "Azaiki Institute Of Science & Technology", "url": "#" }
+        ]
+      }
+    ]
+  }
+  

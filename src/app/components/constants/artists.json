@@ -1,0 +1,112 @@
+[
+  {
+    "id": 3,
+    "name": "Milicent Osumuo Onuegbu",
+    "profileImage": "https://tecxposition.com/wp-content/uploads/elementor/thumbs/Millicent-Osumuo-Onuegbu-bw-pmrlzsis7dqwy4h7run98ibiuz3y9cdvyxlhw2ucvs.jpg",
+    "coverimage": "/images/IMG-20250101-WA0020.jpg",
+    "image": "/images/IMG-20250101-WA0022.jpg",
+    "occupation": "Contemporary Artist",
+    "bio": "Millicent Osumuo Onuegbu is a Nigerian contemporary artist and artpreneur. Growing up in a home influenced by her father, a self-taught artist, Millicent's early exposure to art ignited her passion for painting and drawing. She honed her skills at the University of Uyo, Akwa-Ibom State, where she earned a Bachelor of Arts (BA) in Painting in 2002. In 2005, Millicent established Colourmimi Studio in Abuja, where she has continued her full-time artistic practice. Her work reflects her diverse life experiences and explores a range of themes, resulting in a vibrant and dynamic portfolio that has earned her numerous exhibitions, collaborations, and accolades. Millicent also pursued further business education, completing an Owner Manager Programme at the Lagos Business School in 2022 and currently studying Strategy and Innovation. This blend of artistic and business expertise allows her to approach her creative practice with a well-rounded perspective, strengthening her position as a leading contemporary artist and entrepreneur.",
+    "achievements": [
+      "Artist of the Year Award (2021)",
+      "Solo Exhibition at the Tate Modern"
+    ],
+    "vision": "To create art that evokes deep emotional connections.",
+    "contact": {
+      "email": "jane.smith@example.com",
+      "linkedin": "https://linkedin.com/in/janesmith",
+      "twitter": "https://twitter.com/janesmith"
+    },
+    "artworks": [
+      {
+        "title": "Abstract Art 1",
+        "image": "/images/IMG-20250101-WA0020.jpg",
+        "description": "A bold statement on cultural identity."
+      },
+      {
+        "title": "Abstract Art 2",
+        "image": "/images/IMG-20250101-WA0021.jpg",
+        "description": "A fusion of colors inspired by nature."
+      },
+      {
+        "title": "Abstract Art 3",
+        "image": "/images/IMG-20250101-WA0022.jpg",
+        "description": "A minimalist approach to human emotions."
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "GoofyTakesPics",
+    "profileImage": "/images/IMG-20250101-WA0020.jpg",
+    "coverimage": "/images/IMG-20250101-WA0026.jpg",
+    "image": "/images/IMG-20250101-WA0020.jpg",
+    "occupation": "Musician",
+    "bio": "GoofyTakesPics is a renowned musician known for his soulful jazz compositions. With over 20 years of experience, he has performed at prestigious venues worldwide.",
+    "achievements": [
+      "Grammy Award for Best Jazz Album (2020)",
+      "Jazz Musician of the Year (2019)",
+      "Performed at the Montreux Jazz Festival"
+    ],
+    "vision": "To inspire the next generation of musicians through the power of jazz.",
+    "contact": {
+      "email": "john.doe@example.com",
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "twitter": "https://twitter.com/johndoe"
+    },
+    "artworks": [
+      {
+        "title": "Artwork 1",
+        "image": "/images/IMG-20250101-WA0020.jpg",
+        "description": "A stunning piece inspired by nature's tranquility."
+      },
+      {
+        "title": "Artwork 2",
+        "image": "/images/IMG-20250101-WA0021.jpg",
+        "description": "An abstract representation of musical harmony."
+      },
+      {
+        "title": "Artwork 3",
+        "image": "/images/IMG-20250101-WA0022.jpg",
+        "description": "A vibrant portrait capturing raw emotions."
+      },
+      {
+        "title": "Artwork 4",
+        "image": "/images/IMG-20250101-WA0023.jpg",
+        "description": "A surreal landscape exploring depth and dimension."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "John Doe",
+    "profileImage": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg",
+    "coverimage": "https://images.squarespace-cdn.com/content/v1/569591ff0ab3771dba3f1ec6/1650383193773-4E38HIVJMG16Q5MHD80A/JD+Solo+by+Todd+V+Wolfson.jpg?format=2500w",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg",
+    "occupation": "Musician",
+    "bio": "John Doe is a renowned musician known for his soulful jazz compositions. With over 20 years of experience, he has performed at prestigious venues worldwide.",
+    "achievements": [
+      "Grammy Award for Best Jazz Album (2020)",
+      "Jazz Musician of the Year (2019)",
+      "Performed at the Montreux Jazz Festival"
+    ],
+    "vision": "To inspire the next generation of musicians through the power of jazz.",
+    "contact": {
+      "email": "john.doe@example.com",
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "twitter": "https://twitter.com/johndoe"
+    },
+    "artworks": [
+      {
+        "title": "Artwork 1",
+        "image": "/images/IMG-20250101-WA0024.jpg",
+        "description": "A modernist take on urban life."
+      },
+      {
+        "title": "Artwork 2",
+        "image": "/images/IMG-20250101-WA0025.jpg",
+        "description": "A deep exploration of light and shadow."
+      }
+    ]
+  }
+]

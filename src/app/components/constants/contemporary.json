@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "name": "Artist 1",
+      "image": "https://via.placeholder.com/400x300",
+      "description": "A brief description of Artist 1's work and style.",
+      "bio": "Artist 1 is known for their abstract paintings that explore the relationship between light and color. Their work has been featured in numerous exhibitions worldwide.",
+      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+    },
+    {
+      "id": 2,
+      "name": "Artist 2",
+      "image": "https://via.placeholder.com/400x300",
+      "description": "A brief description of Artist 2's work and style.",
+      "bio": "Artist 2 specializes in modern sculptures that challenge traditional notions of form and space.",
+      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+    },
+    {
+      "id": 3,
+      "name": "Artist 3",
+      "image": "https://via.placeholder.com/400x300",
+      "description": "A brief description of Artist 3's work and style.",
+      "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+    },
+    {
+        "id": 4,
+        "name": "Artist 4",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 3's work and style.",
+        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+      },
+      {
+        "id": 5,
+        "name": "Artist 5",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 3's work and style.",
+        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+      },
+      {
+        "id": 6,
+        "name": "Artist 6",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 3's work and style.",
+        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+      }
+  ]
+  
