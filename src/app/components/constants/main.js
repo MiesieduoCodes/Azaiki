@@ -91,9 +91,9 @@ const artist = [
           "isActive": true,
           "items": [
             { "title": "Digital Art", "url": "/digital" },
-            { "title": "Contemporary Arts", "url": "/contemporary" },
             { "title": "General", "url": "/all" },
             { "title": "Sculptures", "url": "/sculptures" },
+            { "title": "Contemporary Arts", "url": "/contemporary" },
             { "title": "Niger Delta Arts", "url": "/niger-delta" },
             { "title": "African Arts", "url": "/african" }
           ]

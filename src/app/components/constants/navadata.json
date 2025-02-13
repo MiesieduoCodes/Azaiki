@@ -63,7 +63,7 @@
         "items": [
           { "title": "About The Professor", "url": "/prof" },
           { "title": "Azaiki Foundation", "url": "#" },
-          { "title": "Azaiki Public Library", "url": "#" },
+          { "title": "Azaiki Public Library", "url": "/public-library" },
           { "title": "Azaiki Institute Of Science & Technology", "url": "#" }
         ]
       }

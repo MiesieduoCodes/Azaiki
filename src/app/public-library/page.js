@@ -19,7 +19,7 @@ const HeroSection = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}>
-      <div className="hero-overlay bg-black bg-opacity-70"></div>
+      <div className="hero-overlay bg-black bg-opacity-90"></div>
       <div className="hero-content text-neutral-content text-center relative z-10">
         <div className="max-w-md">
           <motion.h1 className="mb-5 text-5xl text-black font-bold hero-title">

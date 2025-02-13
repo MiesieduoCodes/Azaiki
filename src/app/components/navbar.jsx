@@ -34,8 +34,10 @@ const Navbar = () => {
           <span>Phone: +123 456 7890</span>
         </div>
         <div className="flex space-x-6 text-xs md:text-sm">
-          <span><TransitionLink href="/contact" label="Contact"/></span>
-          <span></span>
+          <a href="/faq"><span>FAQ</span></a>
+          <a href="/contact"><span>Contact</span></a>
+          <a href="/support"> <span>Support</span></a>
+          <a href="#"><span>More</span> </a>
         </div>
       </div>
 
