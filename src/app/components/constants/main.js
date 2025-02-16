@@ -85,6 +85,11 @@ const artist = [
       ],
       "navMain": [
         {
+          "title": "About",
+          "url": "/about",
+          "icon": "Info"
+        },
+        {
           "title": "Art Gallery",
           "url": "#",
           "icon": "Palette",
@@ -101,11 +106,11 @@ const artist = [
         {
           "title": "Museum",
           "url": "#",
-          "icon": "RollerCoaster",
+          "icon": "Landmark",
           "items": [
             { "title": "Museum Of African Arts", "url": "/african-museum" },
-            { "title": "Museum Of Niger Delta", "url": "niger-museum" },
-            { "title": "Letter From The President, African Museum Association", "url": "/affirmation" }
+            { "title": "Museum Of Niger Delta", "url": "/niger-museum" },
+            { "title": "Letter From The President", "url": "/affirmation" }
           ]
         },
         {
@@ -119,32 +124,27 @@ const artist = [
               "avatar": "/images/IMG-20250101-WA0022.jpg"
             },
             {
-              "title": "Another Artist",
-              "url": "/artists?id=2",
-              "avatar": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg"
-            },
-            {
-              "title": "...View More",
-              "url": "/artisans"
+              "title": "Other Artists",
+              "url": "/artists"
             }
           ]
         },
         {
-          "title": "More From Azaiki",
+          "title": "More",
           "url": "#",
-          "icon": "Palette",
-          "isActive": true,
+          "icon": "MoreHorizontal",
           "items": [
             { "title": "About The Professor", "url": "/prof" },
-            { "title": "Azaiki Foundation", "url": "#" },
-            { "title": "Azaiki Public Library", "url": "/public-library" },
-            { "title": "Azaiki Institute Of Science & Technology", "url": "#" }
+            { "title": "Azaiki Foundation", "url": "/foundation" },
+            { "title": "Public Library", "url": "/library" },
+            { "title": "Science Institute", "url": "/science" }
           ]
         }
       ]
     }
-    
-  ]
+  ];
+  
+  export default navadata;
 
   const nigerdelta = [
     {
