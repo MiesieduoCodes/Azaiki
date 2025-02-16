@@ -27,19 +27,17 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top Contact Navbar */}
-      <div className="bg-yellow-500 text-white w-full fixed text-sm py-2 px-4 flex justify-between items-center z-50 top-0 shadow-md">
-        <div className="flex space-x-6 text-xs md:text-sm">
-          <span>Email: contact@example.com </span>
-          <span>Phone: +123 456 7890</span>
-        </div>
-        <div className="flex space-x-6 text-xs md:text-sm">
-          <a href="/faq"><span>FAQ</span></a>
-          <a href="/contact"><span>Contact</span></a>
-          <a href="/support"> <span>Support</span></a>
-          <a href="#"><span>More</span> </a>
-        </div>
-      </div>
+   {/* Top Contact Navbar */}
+<div className="bg-yellow-500 text-white w-full fixed top-0 z-50 shadow-md text-sm py-2 px-4 flex justify-between items-center">
+
+  <div className="flex space-x-4 text-xs md:text-sm">
+    <a href="/faq"><span>FAQ</span></a>
+    <a href="/contact"><span>Contact</span></a>
+    <a href="/support"><span>Support</span></a>
+    <a href="#"><span>More</span></a>
+  </div>
+</div>
+
 
       {/* Main Navbar */}
       <nav className="bg-white pt-3 dark:bg-black text-black dark:text-white shadow-md fixed w-full z-40 top-8">

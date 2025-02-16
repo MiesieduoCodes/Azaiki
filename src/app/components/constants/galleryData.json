@@ -1,0 +1,33 @@
+{
+    "slider": [
+      {
+        "src": "https://images.pexels.com/photos/4238493/pexels-photo-4238493.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "title": "Neon Metropolis",
+        "description": "A cyberpunk-inspired cityscape glowing with vibrant digital brushstrokes."
+      },
+      {
+        "src": "https://images.pexels.com/photos/30618724/pexels-photo-30618724/free-photo-of-young-girl-working-at-computer-desk-in-dim-light.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "title": "Ethereal Dreams",
+        "description": "An abstract fusion of light and motion, capturing the essence of digital surrealism."
+      },
+      {
+        "src": "https://images.pexels.com/photos/4986496/pexels-photo-4986496.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "title": "AI & Creativity",
+        "description": "Exploring the intersection of human imagination and artificial intelligence in digital art."
+      },
+      {
+        "src": "https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "title": "Virtual Renaissance",
+        "description": "A modern twist on classical paintings, reimagined through digital techniques."
+      }
+    ],
+    "exhibition": [
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600"
+    ]
+  }
+  
