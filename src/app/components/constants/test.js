@@ -1,84 +1,97 @@
-// import { useEffect, useState } from 'react';
-// import { initializeApp } from 'firebase/app';
-// import { getDatabase, ref, get } from 'firebase/database';
-// import { app, database } from '@/app/firebase.js'
+"use client";
+import { useState, useEffect } from 'react';
+import { db } from '@/app/firebase';
+import { collection, onSnapshot } from 'firebase/firestore';
 
-// // Local data as a fallback
-// const localData = {
-//     contemporary: [],
-//     artist: [],
-//     testimonials: {
-//         "testimonials": [
-//             { "quote": "Azaiki Art Gallery is an exceptional space.", "name": "Jane Doe", "role": "Contemporary Artist" }
-//         ]
-//     },
-//     navadata: {
-//         "user": {
-//             "name": "Contact Us",
-//             "avatar": "/avatars/shadcn.jpg",
-//             "url": "/contact"
-//         }
-//     },
-//     nigerdelta: {
-//         "artists": [
-//             { "name": "Ebiye Obuba", "bio": "A master woodcarver known for intricate designs." }
-//         ]
-//     },
-//     generalarts: [
-//         {
-//             "id": "digital-arts",
-//             "title": "Digital Arts",
-//             "items": [
-//                 { "title": "Digital Art 1", "image": "https://via.placeholder.com/400x300" }
-//             ]
-//         }
-//     ]
-// };
+const localData = {
+  artist: [],
+  categories: [],
+  testimonials: { testimonials: [] },
+  navadata: {},
+  nigerdelta: {},
+  generalarts: []
+};
 
-// // Custom hook to fetch data
-// export const useFetchData = () => {
-//     const [fetchedData, setFetchedData] = useState(null);
-//     const [isLoading, setIsLoading] = useState(true);
+export const useFetchData = () => {
+  const [data, setData] = useState(localData);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-//     useEffect(() => {
-//         const fetchDataFromFirebase = async () => {
-//             try {
-//                 const dbRef = ref(database);
-//                 const snapshot = await get(dbRef);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const unsubscribes = [];
+        
+        // Artists collection
+        const artistsUnsubscribe = onSnapshot(
+          collection(db, 'artists'),
+          (snapshot) => {
+            const artistsData = snapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }));
+            setData(prev => ({ ...prev, artist: artistsData }));
+          },
+          (error) => {
+            console.error("Artists listen error:", error);
+            setError(error);
+          }
+        );
+        unsubscribes.push(artistsUnsubscribe);
 
-//                 if (snapshot.exists()) {
-//                     const data = snapshot.val();
-//                     setFetchedData({
-//                         contemporary: data.contemporary || localData.contemporary,
-//                         artist: data.artist || localData.artist,
-//                         testimonials: data.testimonials || localData.testimonials,
-//                         navadata: data.navadata || localData.navadata,
-//                         nigerdelta: data.nigerdelta || localData.nigerdelta,
-//                         generalarts: data.generalarts || localData.generalarts
-//                     });
-//                 } else {
-//                     console.log('No data available, using local data.');
-//                     setFetchedData(localData);
-//                 }
-//             } catch (error) {
-//                 console.error('Error fetching data:', error);
-//                 setFetchedData(localData); // Use local data in case of error
-//             } finally {
-//                 setIsLoading(false); // Set loading to false after fetching
-//             }
-//         };
+        // Categories collection
+        const categoriesUnsubscribe = onSnapshot(
+          collection(db, 'categories'),
+          (snapshot) => {
+            const categoriesData = snapshot.docs.map(doc => doc.data());
+            setData(prev => ({ ...prev, categories: categoriesData }));
+          },
+          (error) => {
+            console.error("Categories listen error:", error);
+            setError(error);
+          }
+        );
+        unsubscribes.push(categoriesUnsubscribe);
 
-//         fetchDataFromFirebase();
-//     }, []);
+        // Testimonials collection
+        const testimonialsUnsubscribe = onSnapshot(
+          collection(db, 'testimonials'),
+          (snapshot) => {
+            const testimonialsData = snapshot.docs[0]?.data() || localData.testimonials;
+            setData(prev => ({ ...prev, testimonials: testimonialsData }));
+          },
+          (error) => {
+            console.error("Testimonials listen error:", error);
+            setError(error);
+          }
+        );
+        unsubscribes.push(testimonialsUnsubscribe);
 
-//     return { fetchedData, isLoading };
-// };
-import React from 'react'
+        setLoading(false);
 
-const test = () => {
-  return (
-    <div>test</div>
-  )
-}
+        // Cleanup function
+        return () => {
+          unsubscribes.forEach(unsubscribe => unsubscribe());
+        };
 
-export default test
+      } catch (err) {
+        setError(err);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Merge with local data for fallback
+  const mergedData = {
+    artist: data.artist?.length ? data.artist : localData.artist,
+    categories: data.categories?.length ? data.categories : localData.categories,
+    testimonials: data.testimonials || localData.testimonials,
+    navadata: data.navadata || localData.navadata,
+    nigerdelta: data.nigerdelta || localData.nigerdelta,
+    generalarts: data.generalarts || localData.generalarts
+  };
+
+  return { data: mergedData, loading, error };
+};

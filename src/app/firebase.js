@@ -11,8 +11,7 @@ const firebaseConfig = {
   measurementId: "G-F272Z9R7XW"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app); // Use Firestore instead of Realtime Database
+const db = getFirestore(app);
 
-export { app, db };
+export { app, db }; // Exporting Firestore instance as 'db'
