@@ -56,38 +56,52 @@ const Home = () => {
     const artistRef = ref(database, "artist");
     onValue(artistRef, (snapshot) => {
       const data = snapshot.val();
-      const artistList = data ? Object.values(data) : [];
+      const artistList = data
+        ? Object.keys(data).map((key) => ({ ...data[key], id: key })) // Include `id`
+        : []; // Fallback to empty array if data is null/undefined
       setArtist(artistList);
     });
 
     const contemporaryRef = ref(database, "contemporary");
     onValue(contemporaryRef, (snapshot) => {
       const data = snapshot.val();
-      setContemporary(Array.isArray(data) && data.length > 0 ? data[0] : []);
+      const contemporaryList = data
+        ? Object.keys(data).map((key) => ({ ...data[key], id: key })) // Include `id`
+        : []; // Fallback to empty array if data is null/undefined
+      setContemporary(contemporaryList);
       setLoading(false);
     });
 
     const generalArtsRef = ref(database, "generalarts");
     onValue(generalArtsRef, (snapshot) => {
       const data = snapshot.val();
-      setGeneralArts(Array.isArray(data) && data.length > 0 ? data[0] : []);
+      const generalArtsList = data
+        ? Object.keys(data).map((key) => ({ ...data[key], id: key })) // Include `id`
+        : []; // Fallback to empty array if data is null/undefined
+      setGeneralArts(generalArtsList);
     });
 
     const nigerDeltaRef = ref(database, "nigerdelta");
     onValue(nigerDeltaRef, (snapshot) => {
       const data = snapshot.val();
-      setNigerDelta(Array.isArray(data) && data.length > 0 ? data[0].artists : []);
+      const nigerDeltaList = data
+        ? Object.keys(data).map((key) => ({ ...data[key], id: key })) // Include `id`
+        : []; // Fallback to empty array if data is null/undefined
+      setNigerDelta(nigerDeltaList);
     });
 
     const testimonialsRef = ref(database, "testimonials");
     onValue(testimonialsRef, (snapshot) => {
       const data = snapshot.val();
-      setTestimonials(Array.isArray(data) && data.length > 0 ? data : []);
+      const testimonialsList = data
+        ? Object.keys(data).map((key) => ({ ...data[key], id: key })) // Include `id`
+        : []; // Fallback to empty array if data is null/undefined
+      setTestimonials(testimonialsList);
     });
   };
 
   const openModal = (data) => {
-    setSelectedData(data);
+    setSelectedData({ ...data, id: data.id || data.key }); // Ensure `id` is set correctly
     setIsModalOpen(true);
   };
 
@@ -110,7 +124,7 @@ const Home = () => {
     const updatedData = {
       ...selectedData,
     };
-    const dataRef = ref(database, `nigerdelta/${selectedData.id}`); // Adjust the path as necessary
+    const dataRef = ref(database, `artist/${selectedData.id}`); // Adjust the path based on the category
     update(dataRef, updatedData)
       .then(() => {
         showAlert('Data updated successfully!');
@@ -122,7 +136,7 @@ const Home = () => {
   };
 
   const handleDelete = (id, category) => {
-    const dataRef = ref(database, `${category}/${id}`); // Adjust the path as necessary
+    const dataRef = ref(database, `${category}/${id}`); // Ensure the path is correct
     remove(dataRef)
       .then(() => {
         showAlert('Data deleted successfully!');
@@ -180,7 +194,7 @@ const Home = () => {
               Add New Artist
             </button>
             <ul className="space-y-2">
-              {artist.map((user, index) => (
+              {(artist || []).map((user, index) => (
                 <li key={index} className="bg-gray-700 p-4 rounded shadow-md">
                   {user.name}
                   <button
@@ -206,42 +220,34 @@ const Home = () => {
               Add New Contemporary Artist
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {contemporary.length > 0 ? (
-                contemporary.map((cont, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
-                    <h2 className="text-xl font-semibold">{cont.name}</h2>
-                    <img src={cont.image} alt={cont.name} className="w-full h-48 object-cover rounded mb-2" />
-                    <p>{cont.bio || "Biography not available."}</p>
-                    <p>{cont.description}</p>
-                    <h3 className="font-bold mt-2">Portfolio</h3>
-                    <ul className="flex flex-wrap">
-                      {Array.isArray(cont.portfolio) && cont.portfolio.length > 0 ? (
-                        cont.portfolio.map((portfolioItem, portfolioIndex) => (
-                          <li key={portfolioIndex} className="mr-2">
-                            <img src={portfolioItem} alt={`Portfolio item ${portfolioIndex + 1}`} className="w-32 h-32 rounded" />
-                          </li>
-                        ))
-                      ) : (
-                        <li>No portfolio items available</li>
-                      )}
-                    </ul>
-                    <button
-                      onClick={() => openModal(cont)}
-                      className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(cont.id, "contemporary")}
-                      className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <li>No contemporary artists available</li>
-              )}
+              {(contemporary || []).map((cont, index) => (
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
+                  <h2 className="text-xl font-semibold">{cont.name}</h2>
+                  <img src={cont.image} alt={cont.name} className="w-full h-48 object-cover rounded mb-2" />
+                  <p>{cont.bio || "Biography not available."}</p>
+                  <p>{cont.description}</p>
+                  <h3 className="font-bold mt-2">Portfolio</h3>
+                  <ul className="flex flex-wrap">
+                    {(cont.portfolio || []).map((portfolioItem, portfolioIndex) => (
+                      <li key={portfolioIndex} className="mr-2">
+                        <img src={portfolioItem} alt={`Portfolio item ${portfolioIndex + 1}`} className="w-32 h-32 rounded" />
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => openModal(cont)}
+                    className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(cont.id, "contemporary")}
+                    className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -251,36 +257,32 @@ const Home = () => {
               Add New General Art
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {generalArts.length > 0 ? (
-                generalArts.map((art, index) => (
-                  <div key={index} className={`bg-gray-700 p-4 rounded shadow-md ${art.background}`}>
-                    <h2 className="text-xl font-semibold">{art.title}</h2>
-                    <ul className="space-y-2">
-                      {art.items.map((item, itemIndex) => (
-                        <li key={itemIndex}>
-                          <h3 className="font-semibold">{item.title}</h3>
-                          <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded mb-2" />
-                          <p>{item.description || "No description available."}</p>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => openModal(art)}
-                      className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(art.id, "generalarts")}
-                      className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <li>No general arts available</li>
-              )}
+              {(generalArts || []).map((art, index) => (
+                <div key={index} className={`bg-gray-700 p-4 rounded shadow-md ${art.background}`}>
+                  <h2 className="text-xl font-semibold">{art.title}</h2>
+                  <ul className="space-y-2">
+                    {(art.items || []).map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <h3 className="font-semibold">{item.title}</h3>
+                        <img src={item.image} alt={item.title} className="w-full h-48 object-cover rounded mb-2" />
+                        <p>{item.description || "No description available."}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => openModal(art)}
+                    className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(art.id, "generalarts")}
+                    className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -290,37 +292,33 @@ const Home = () => {
               Add New Niger Delta Art
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {nigerDelta.length > 0 ? (
-                nigerDelta.map((artist, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
-                    <h2 className="text-xl font-semibold">{artist.name}</h2>
-                    <p>{artist.bio}</p>
-                    <h3 className="font-bold mt-2">Artworks</h3>
-                    <ul className="space-y-2">
-                      {artist.artworks.map((artwork, artworkIndex) => (
-                        <li key={artworkIndex}>
-                          <img src={artwork.image} alt={`Artwork ${artworkIndex + 1}`} className="w-full h-48 object-cover rounded mb-2" />
-                          <p>{artwork.description || "No description available."}</p>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => openModal(artist)}
-                      className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(artist.id, "nigerdelta")}
-                      className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <li>No Niger Delta artists available</li>
-              )}
+              {(nigerDelta || []).map((artist, index) => (
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
+                  <h2 className="text-xl font-semibold">{artist.name}</h2>
+                  <p>{artist.bio}</p>
+                  <h3 className="font-bold mt-2">Artworks</h3>
+                  <ul className="space-y-2">
+                    {(artist.artworks || []).map((artwork, artworkIndex) => (
+                      <li key={artworkIndex}>
+                        <img src={artwork.image} alt={`Artwork ${artworkIndex + 1}`} className="w-full h-48 object-cover rounded mb-2" />
+                        <p>{artwork.description || "No description available."}</p>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => openModal(artist)}
+                    className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(artist.id, "nigerdelta")}
+                    className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -330,30 +328,26 @@ const Home = () => {
               Add New Testimonial
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.length > 0 ? (
-                testimonials.map((testimonial, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded shadow-md flex flex-col items-center">
-                    <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full mb-2" />
-                    <h2 className="font-bold">{testimonial.name}</h2>
-                    <p className="italic">{testimonial.role}</p>
-                    <p className="mt-2 text-center">"{testimonial.quote}"</p>
-                    <button
-                      onClick={() => openModal(testimonial)}
-                      className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(testimonial.id, "testimonials")}
-                      className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <li>No testimonials available</li>
-              )}
+              {(testimonials || []).map((testimonial, index) => (
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md flex flex-col items-center">
+                  <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full mb-2" />
+                  <h2 className="font-bold">{testimonial.name}</h2>
+                  <p className="italic">{testimonial.role}</p>
+                  <p className="mt-2 text-center">"{testimonial.quote}"</p>
+                  <button
+                    onClick={() => openModal(testimonial)}
+                    className="mt-4 bg-blue-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(testimonial.id, "testimonials")}
+                    className="mt-2 bg-red-500 text-white p-2 rounded ml-[4px]"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
           </section>
 
