@@ -11,7 +11,7 @@ const Navbar = () => {
   const [menuData, setMenuData] = useState(null);
   const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme } = useTheme();
+
 
   useEffect(() => {
     setMenuData(Navdata[0]);

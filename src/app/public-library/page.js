@@ -30,9 +30,10 @@ const HeroSection = () => {
             With a vast collection of books, digital resources, and community programs, 
             it fosters a love for reading and lifelong learning for all ages.
           </motion.p>
-          <a href="#">
-            <button className="btn">
-              Fast Travel to Azaiki Library
+          <a href="#" className="font-semibold dark:text-yellow-500">
+            <button className="btn ">
+              <h2 className="dark:text-yellow-500">
+              Fast Travel to Azaiki Library</h2>
             </button>
           </a>
         </div>

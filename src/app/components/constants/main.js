@@ -136,7 +136,7 @@ const artist = [
           "items": [
             { "title": "About The Professor", "url": "/prof" },
             { "title": "Azaiki Foundation", "url": "/foundation" },
-            { "title": "Public Library", "url": "/library" },
+            { "title": "Public Library", "url": "/public-library" },
             { "title": "Science Institute", "url": "/science" }
           ]
         }
@@ -144,7 +144,6 @@ const artist = [
     }
   ];
   
-  export default navadata;
 
   const nigerdelta = [
     {
