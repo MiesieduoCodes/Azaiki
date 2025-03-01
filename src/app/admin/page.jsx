@@ -1,607 +1,657 @@
 "use client";
 import { useEffect, useState } from "react";
 import { database } from "@/app/firebase";
-import { ref, onValue, update, remove, push } from "firebase/database";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { ref, onValue, push, update, remove } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Home = () => {
-  // Data states
-  const [artist, setArtist] = useState([]);
-  const [contemporary, setContemporary] = useState([]);
-  const [generalArts, setGeneralArts] = useState([]);
-  const [nigerDelta, setNigerDelta] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
-
-  // UI states
-  const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [newItem, setNewItem] = useState({});
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(true);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertType, setAlertType] = useState("success"); // "success" or "error"
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Auth states
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+const AdminDashboard = () => {    
+    const [data, setData] = useState({}); // 
+    const [loading, setLoading] = useState(true); // Loading state
+    const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+    const [selectedItem, setSelectedItem] = useState(null); // Selected item for editing
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(true); // Login modal state
+    const [email, setEmail] = useState(""); // Email for login
+    const [password, setPassword] = useState(""); // Password for login
+    const [user, setUser] = useState(null); // Authenticated user
+    const [activeCategory, setActiveCategory] = useState("testimonials"); // Active sidebar category
 
   const auth = getAuth();
 
-  // Alert function
-  const showAlert = (message, type = "success") => {
-    setAlertMessage(message);
-    setAlertType(type);
-    setIsAlertOpen(true);
-    setTimeout(() => {
-      setIsAlertOpen(false);
-      setAlertMessage(null);
-    }, 3000);
+  // Fetch data from Firebase
+  const fetchData = () => {
+    const categories = [
+      "testimonials",
+      "artist",
+      "nigerdelta",
+      "generalarts",
+      "contemporary",
+      "sculptures",
+      "africanartists",
+      "digitalarts",
+    ];
+
+    const dataRefs = categories.map((category) => ref(database, category));
+
+    dataRefs.forEach((ref, index) => {
+      onValue(ref, (snapshot) => {
+        const categoryData = snapshot.val();
+        setData((prev) => ({
+          ...prev,
+          [categories[index]]: categoryData
+            ? Object.keys(categoryData).map((key) => ({
+                id: key,
+                ...categoryData[key],
+              }))
+            : [],
+        }));
+      });
+    });
+    setLoading(false);
   };
 
-  // Listen for authentication state changes
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setIsLoginModalOpen(false);
-        loadData();
+   // Handle login
+   const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      setUser(userCredential.user);
+      setIsLoginModalOpen(false);
+      fetchData(); // Fetch data after successful login
+      toast.success("Login successful!");
+    } catch (error) {
+      toast.error("Login failed: " + error.message);
+    }
+  };
+
+  // Handle save (add/edit)
+  const handleSave = async (e, category) => {
+    e.preventDefault();
+    const itemData = { ...selectedItem };
+    delete itemData.id; // Remove ID for Firebase push/update
+
+    try {
+      if (selectedItem.id) {
+        // Update existing item
+        const itemRef = ref(database, `${category}/${selectedItem.id}`);
+        await update(itemRef, itemData);
+        toast.success("Item updated successfully!");
       } else {
-        setUser(null);
-        setLoading(false);
+        // Add new item
+        const itemsRef = ref(database, category);
+        await push(itemsRef, itemData);
+        toast.success("Item added successfully!");
       }
-    });
-    return () => unsubscribe();
-  }, [auth]);
-
-  // Load data from Realtime Database
-  const loadData = () => {
-    setLoading(true);
-
-    // Artists
-    const artistRef = ref(database, "artist");
-    onValue(artistRef, (snapshot) => {
-      const data = snapshot.val();
-      const artistList = data ? Object.keys(data).map((key) => ({ ...data[key], id: key })) : [];
-      setArtist(artistList);
-    });
-
-    // Contemporary
-    const contemporaryRef = ref(database, "contemporary");
-    onValue(contemporaryRef, (snapshot) => {
-      const data = snapshot.val();
-      const contemporaryList = data ? Object.keys(data).map((key) => ({ ...data[key], id: key })) : [];
-      setContemporary(contemporaryList);
-      setLoading(false);
-    });
-
-    // General Arts
-    const generalArtsRef = ref(database, "generalarts");
-    onValue(generalArtsRef, (snapshot) => {
-      const data = snapshot.val();
-      const generalArtsList = data ? Object.keys(data).map((key) => ({ ...data[key], id: key })) : [];
-      setGeneralArts(generalArtsList);
-    });
-
-    // Niger Delta
-    const nigerDeltaRef = ref(database, "nigerdelta");
-    onValue(nigerDeltaRef, (snapshot) => {
-      const data = snapshot.val();
-      const nigerDeltaList = data ? Object.keys(data).map((key) => ({ ...data[key], id: key })) : [];
-      setNigerDelta(nigerDeltaList);
-    });
-
-    // Testimonials
-    const testimonialsRef = ref(database, "testimonials");
-    onValue(testimonialsRef, (snapshot) => {
-      const data = snapshot.val();
-      const testimonialsList = data ? Object.keys(data).map((key) => ({ ...data[key], id: key })) : [];
-      setTestimonials(testimonialsList);
-    });
+      setIsModalOpen(false);
+      setSelectedItem(null);
+    } catch (error) {
+      toast.error("Error saving data: " + error.message);
+    }
   };
 
-  // Modal control functions
-  const openModal = (data) => {
-    setSelectedData({ ...data, id: data.id || data.key });
-    setIsModalOpen(true);
+  // Handle delete
+  const handleDelete = async (id, category) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        const itemRef = ref(database, `${category}/${id}`);
+        await remove(itemRef);
+        toast.success("Item deleted successfully!");
+      } catch (error) {
+        toast.error("Error deleting data: " + error.message);
+      }
+    }
   };
 
+  // Open modal for adding/editing
+  const openModal = (item = null, category) => {
+    setSelectedItem(item || { name: "", description: "", image: "" });
+    setIsModalOpen(category);
+  };
+
+  // Close modal
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedData(null);
+    setSelectedItem(null);
   };
 
-  const openAddModal = () => {
-    setIsAddModalOpen(true);
-  };
+  // Render login modal
+  if (isLoginModalOpen) {
+    return (
+      <div className="p-24 inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg">
+        <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-yellow-500 text-black p-2 rounded w-full"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+    );
+  }
 
-  const closeAddModal = () => {
-    setIsAddModalOpen(false);
-    setNewItem({});
-  };
-
-  // Data manipulation functions
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    const updatedData = { ...selectedData };
-    // Example: updating the "artist" collection. Adjust path for other categories.
-    const dataRef = ref(database, `artist/${selectedData.id}`);
-    update(dataRef, updatedData)
-      .then(() => {
-        showAlert("Data updated successfully!");
-        closeModal();
-      })
-      .catch((error) => {
-        showAlert("Failed to update data: " + error.message, "error");
-      });
-  };
-
-  const handleDelete = (id, category) => {
-    const dataRef = ref(database, `${category}/${id}`);
-    remove(dataRef)
-      .then(() => {
-        showAlert("Data deleted successfully!");
-      })
-      .catch((error) => {
-        showAlert("Failed to delete data: " + error.message, "error");
-      });
-  };
-
-  const handleAdd = (e, category) => {
-    e.preventDefault();
-    const newItemRef = ref(database, category);
-    push(newItemRef, newItem)
-      .then(() => {
-        showAlert("Data added successfully!");
-        closeAddModal();
-      })
-      .catch((error) => {
-        showAlert("Failed to add data: " + error.message, "error");
-      });
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        showAlert("Login successful!");
-        setIsLoginModalOpen(false);
-      })
-      .catch((error) => {
-        showAlert("Login failed: " + error.message, "error");
-      });
-  };
-
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
-  };
-
+  // Render main dashboard
   return (
-    // Add the dark class based on state
-    <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="p-6 bg-gray-800 text-white min-h-screen">
-        {/* Header */}
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleDarkMode}
-              className="bg-yellow-500 text-black p-2 rounded"
+    <div className="flex min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
+            <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-800 dark:bg-black text-white p-10">
+        <h2 className="text-xl font-bold mb-6">Azaiki Art Gallery Dashboard</h2>
+        <ul>
+          {Object.keys(data).map((category) => (
+            <li
+              key={category}
+              className={`mb-2 p-2 rounded cursor-pointer ${
+                activeCategory === category ? "bg-blue-500" : "hover:bg-gray-700"
+              }`}
+              onClick={() => setActiveCategory(category)}
             >
-              {darkMode ? "Light Mode" : "Dark Mode"}
-            </button>
-          </div>
-        </header>
+              {category}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        {/* Alert */}
-        {isAlertOpen && (
-          <div className="fixed top-4 right-4 z-50">
-            <div
-              className={`p-4 rounded shadow-lg ${
-                alertType === "success" ? "bg-green-500" : "bg-red-500"
-              } text-white`}
-            >
-              {alertMessage}
-            </div>
-          </div>
-        )}
+      {/* Main Content */}
+      <div className="flex-1 dark:bg-gray-800 bg-white p-10">
 
-        {loading ? (
-          <div className="flex items-center justify-center h-screen">
-            <h2 className="text-xl">Loading...</h2>
+        {/* Active Category Section */}
+        <section className="mb-8">
+          <h2 className="text-4xl text-black dark:text-white font-bold mb-4 capitalize">{activeCategory}</h2>
+          <button
+            onClick={() => openModal(null, activeCategory)}
+            className="bg-green-500 text-white p-2 rounded mb-4"
+          >
+            Add New {activeCategory}
+          </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data[activeCategory]?.map((item) => (
+              <div key={item.id} className="bg-white  p-4 rounded shadow-md">
+                <h3 className="text-xl text-black font-semibold">{item.name || item.title}</h3>
+                <p>{item.description || item.bio}</p>
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name || item.title}
+                    className="w-full h-48 object-cover rounded mt-2"
+                  />
+                )}
+                <div className="mt-4 flex space-x-2">
+                  <button
+                    onClick={() => openModal(item, activeCategory)}
+                    className="bg-blue-500 text-white p-2 rounded"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id, activeCategory)}
+                    className="bg-red-500 text-white p-2 rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ) : (
+        </section>
+
+        {/* Add/Edit Modal */}
+        {isModalOpen && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-96">
+      <h2 className="text-2xl font-bold mb-4">
+        {selectedItem.id ? "Edit Item" : "Add Item"}
+      </h2>
+      <form onSubmit={(e) => handleSave(e, isModalOpen)}>
+        {/* Testimonials */}
+        {isModalOpen === "testimonials" && (
           <>
-            {/* Artist List */}
-            <section className="mb-8 pt-10">
-              <h1 className="text-3xl font-bold mb-4">Artist List</h1>
-              <button
-                onClick={openAddModal}
-                className="bg-green-500 text-white p-2 rounded mb-4"
-              >
-                Add New Artist
-              </button>
-              <ul className="space-y-2">
-                {(artist || []).map((user, index) => (
-                  <li
-                    key={index}
-                    className="bg-gray-700 p-4 rounded shadow-md flex justify-between items-center"
-                  >
-                    <span>{user.name}</span>
-                    <div>
-                      <button
-                        onClick={() => openModal(user)}
-                        className="bg-blue-500 text-white p-2 rounded ml-2"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(user.id, "artist")}
-                        className="bg-red-500 text-white p-2 rounded ml-2"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Contemporary Artists */}
-            <section className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">Contemporary Artists</h1>
-              <button
-                onClick={openAddModal}
-                className="bg-green-500 text-white p-2 rounded mb-4"
-              >
-                Add New Contemporary Artist
-              </button>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(contemporary || []).map((cont, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-700 p-4 rounded shadow-md flex flex-col"
-                  >
-                    <h2 className="text-xl font-semibold">{cont.name}</h2>
-                    <img
-                      src={cont.image}
-                      alt={cont.name}
-                      className="w-full h-48 object-cover rounded mb-2"
-                    />
-                    <p>{cont.bio || "Biography not available."}</p>
-                    <p>{cont.description}</p>
-                    <h3 className="font-bold mt-2">Portfolio</h3>
-                    <ul className="flex flex-wrap">
-                      {(cont.portfolio ? Object.values(cont.portfolio) : []).map(
-                        (portfolioItem, portfolioIndex) => (
-                          <li key={portfolioIndex} className="mr-2">
-                            <img
-                              src={portfolioItem}
-                              alt={`Portfolio item ${portfolioIndex + 1}`}
-                              className="w-32 h-32 rounded"
-                            />
-                          </li>
-                        )
-                      )}
-                    </ul>
-                    <div className="mt-4 flex space-x-2">
-                      <button
-                        onClick={() => openModal(cont)}
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(cont.id, "contemporary")}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* General Arts */}
-            <section className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">General Arts</h1>
-              <button
-                onClick={openAddModal}
-                className="bg-green-500 text-white p-2 rounded mb-4"
-              >
-                Add New General Art
-              </button>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(generalArts || []).map((art, index) => (
-                  <div
-                    key={index}
-                    className={`bg-gray-700 p-4 rounded shadow-md ${art.background || ""}`}
-                  >
-                    <h2 className="text-xl font-semibold">{art.title}</h2>
-                    <ul className="space-y-2">
-                      {(art.items ? Object.values(art.items) : []).map(
-                        (item, itemIndex) => (
-                          <li key={itemIndex}>
-                            <h3 className="font-semibold">{item.title}</h3>
-                            <img
-                              src={item.image}
-                              alt={item.title}
-                              className="w-full h-48 object-cover rounded mb-2"
-                            />
-                            <p>{item.description || "No description available."}</p>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                    <div className="mt-4 flex space-x-2">
-                      <button
-                        onClick={() => openModal(art)}
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(art.id, "generalarts")}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Niger Delta Arts */}
-            <section className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">Niger Delta Arts</h1>
-              <button
-                onClick={openAddModal}
-                className="bg-green-500 text-white p-2 rounded mb-4"
-              >
-                Add New Niger Delta Art
-              </button>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(nigerDelta || []).map((item, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
-                    <h2 className="text-xl font-semibold">{item.name}</h2>
-                    <p>{item.bio}</p>
-                    <h3 className="font-bold mt-2">Artworks</h3>
-                    <ul className="space-y-2">
-                      {(item.artworks ? Object.values(item.artworks) : []).map(
-                        (artwork, artworkIndex) => (
-                          <li key={artworkIndex}>
-                            <img
-                              src={artwork.image}
-                              alt={`Artwork ${artworkIndex + 1}`}
-                              className="w-full h-48 object-cover rounded mb-2"
-                            />
-                            <p>{artwork.description || "No description available."}</p>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                    <div className="mt-4 flex space-x-2">
-                      <button
-                        onClick={() => openModal(item)}
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item.id, "nigerdelta")}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Testimonials */}
-            <section className="mb-8">
-              <h1 className="text-3xl font-bold mb-4">Testimonials</h1>
-              <button
-                onClick={openAddModal}
-                className="bg-green-500 text-white p-2 rounded mb-4"
-              >
-                Add New Testimonial
-              </button>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {(testimonials || []).map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-700 p-4 rounded shadow-md flex flex-col items-center"
-                  >
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-16 h-16 rounded-full mb-2"
-                    />
-                    <h2 className="font-bold">{testimonial.name}</h2>
-                    <p className="italic">{testimonial.role}</p>
-                    <p className="mt-2 text-center">"{testimonial.quote}"</p>
-                    <div className="mt-4 flex space-x-2">
-                      <button
-                        onClick={() => openModal(testimonial)}
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(testimonial.id, "testimonials")}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Edit Modal */}
-            {isModalOpen && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
-                  <h2 className="text-2xl font-bold mb-4">Edit Data</h2>
-                  <form onSubmit={handleUpdate}>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Name</label>
-                      <input
-                        type="text"
-                        value={selectedData?.name || ""}
-                        onChange={(e) =>
-                          setSelectedData({ ...selectedData, name: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Bio</label>
-                      <textarea
-                        value={selectedData?.bio || ""}
-                        onChange={(e) =>
-                          setSelectedData({ ...selectedData, bio: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Image URL</label>
-                      <input
-                        type="text"
-                        value={selectedData?.image || ""}
-                        onChange={(e) =>
-                          setSelectedData({ ...selectedData, image: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="flex justify-between">
-                      <button
-                        type="button"
-                        onClick={closeModal}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            )}
-
-            {/* Add Modal */}
-            {isAddModalOpen && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
-                  <h2 className="text-2xl font-bold mb-4">Add New Item</h2>
-                  <form onSubmit={(e) => handleAdd(e, "artist")}>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Name</label>
-                      <input
-                        type="text"
-                        value={newItem.name || ""}
-                        onChange={(e) =>
-                          setNewItem({ ...newItem, name: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Bio</label>
-                      <textarea
-                        value={newItem.bio || ""}
-                        onChange={(e) =>
-                          setNewItem({ ...newItem, bio: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Image URL</label>
-                      <input
-                        type="text"
-                        value={newItem.image || ""}
-                        onChange={(e) =>
-                          setNewItem({ ...newItem, image: e.target.value })
-                        }
-                        className="w-full p-2 rounded bg-gray-700"
-                      />
-                    </div>
-                    <div className="flex justify-between">
-                      <button
-                        type="button"
-                        onClick={closeAddModal}
-                        className="bg-red-500 text-white p-2 rounded"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="bg-blue-500 text-white p-2 rounded"
-                      >
-                        Add
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            )}
-
-            {/* Login Modal */}
-            {isLoginModalOpen && (
-              <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
-                  <h2 className="text-2xl font-bold mb-4">Login</h2>
-                  <form onSubmit={handleLogin}>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Email</label>
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-2 rounded bg-gray-700"
-                        required
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Password</label>
-                      <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full p-2 rounded bg-gray-700"
-                        required
-                      />
-                    </div>
-                    <div className="flex justify-end">
-                      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-                        Login
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            )}
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Role</label>
+              <input
+                type="text"
+                value={selectedItem.role || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, role: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Quote</label>
+              <textarea
+                value={selectedItem.quote || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, quote: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
           </>
         )}
+
+        {/* Artist */}
+        {isModalOpen === "artist" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Bio</label>
+              <textarea
+                value={selectedItem.bio || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, bio: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Profile Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.profileImage || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, profileImage: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Cover Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.coverimage || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, coverimage: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Occupation</label>
+              <input
+                type="text"
+                value={selectedItem.occupation || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, occupation: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* Niger Delta */}
+        {isModalOpen === "nigerdelta" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Bio</label>
+              <textarea
+                value={selectedItem.bio || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, bio: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Artwork Title</label>
+              <input
+                type="text"
+                value={selectedItem.title || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, title: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Artwork Description</label>
+              <textarea
+                value={selectedItem.description || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, description: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Artwork Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* General Arts */}
+        {isModalOpen === "generalarts" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Title</label>
+              <input
+                type="text"
+                value={selectedItem.title || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, title: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={selectedItem.description || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, description: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* Contemporary */}
+        {isModalOpen === "contemporary" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={selectedItem.description || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, description: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* Sculptures */}
+        {isModalOpen === "sculptures" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Title</label>
+              <input
+                type="text"
+                value={selectedItem.title || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, title: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={selectedItem.description || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, description: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* African Artists */}
+        {isModalOpen === "africanartists" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={selectedItem.description || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, description: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* Digital Arts */}
+        {isModalOpen === "digitalarts" && (
+          <>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Name</label>
+              <input
+                type="text"
+                value={selectedItem.name || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, name: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Bio</label>
+              <textarea
+                value={selectedItem.bio || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, bio: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Image URL</label>
+              <input
+                type="text"
+                value={selectedItem.image || ""}
+                onChange={(e) =>
+                  setSelectedItem({ ...selectedItem, image: e.target.value })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2">Portfolio (Comma Separated URLs)</label>
+              <textarea
+                value={selectedItem.portfolio ? Object.values(selectedItem.portfolio).join(", ") : ""}
+                onChange={(e) =>
+                  setSelectedItem({
+                    ...selectedItem,
+                    portfolio: e.target.value.split(", ").reduce((acc, url, index) => {
+                      acc[`portfolio_${index + 1}`] = url;
+                      return acc;
+                    }, {}),
+                  })
+                }
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white"
+              />
+            </div>
+          </>
+        )}
+
+        {/* Save and Cancel Buttons */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={closeModal}
+            className="bg-gray-500 text-white p-2 rounded mr-2"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="bg-yellow-500 text-black p-2 rounded"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );
 };
 
-export default Home;
+export default AdminDashboard;
