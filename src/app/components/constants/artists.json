@@ -1,8 +1,8 @@
 [
   {
-    "id": 3,
+    "id": 1,
     "name": "Milicent Osumuo Onuegbu",
-    "profileImage": "https://tecxposition.com/wp-content/uploads/elementor/thumbs/Millicent-Osumuo-Onuegbu-bw-pmrlzsis7dqwy4h7run98ibiuz3y9cdvyxlhw2ucvs.jpg",
+    "profileImage": "/images/IMG-20250207-WA0018.jpg",
     "coverimage": "/images/IMG-20250101-WA0020.jpg",
     "image": "/images/IMG-20250101-WA0022.jpg",
     "occupation": "Contemporary Artist",
@@ -19,93 +19,28 @@
     },
     "artworks": [
       {
-        "title": "Abstract Art 1",
-        "image": "/images/IMG-20250101-WA0020.jpg",
-        "description": "A bold statement on cultural identity."
-      },
-      {
-        "title": "Abstract Art 2",
-        "image": "/images/IMG-20250101-WA0021.jpg",
-        "description": "A fusion of colors inspired by nature."
-      },
-      {
-        "title": "Abstract Art 3",
-        "image": "/images/IMG-20250101-WA0022.jpg",
-        "description": "A minimalist approach to human emotions."
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "name": "GoofyTakesPics",
-    "profileImage": "/images/IMG-20250101-WA0020.jpg",
-    "coverimage": "/images/IMG-20250101-WA0026.jpg",
-    "image": "/images/IMG-20250101-WA0020.jpg",
-    "occupation": "Musician",
-    "bio": "GoofyTakesPics is a renowned musician known for his soulful jazz compositions. With over 20 years of experience, he has performed at prestigious venues worldwide.",
-    "achievements": [
-      "Grammy Award for Best Jazz Album (2020)",
-      "Jazz Musician of the Year (2019)",
-      "Performed at the Montreux Jazz Festival"
-    ],
-    "vision": "To inspire the next generation of musicians through the power of jazz.",
-    "contact": {
-      "email": "john.doe@example.com",
-      "linkedin": "https://linkedin.com/in/johndoe",
-      "twitter": "https://twitter.com/johndoe"
-    },
-    "artworks": [
-      {
-        "title": "Artwork 1",
-        "image": "/images/IMG-20250101-WA0020.jpg",
-        "description": "A stunning piece inspired by nature's tranquility."
-      },
-      {
-        "title": "Artwork 2",
-        "image": "/images/IMG-20250101-WA0021.jpg",
-        "description": "An abstract representation of musical harmony."
-      },
-      {
-        "title": "Artwork 3",
-        "image": "/images/IMG-20250101-WA0022.jpg",
-        "description": "A vibrant portrait capturing raw emotions."
-      },
-      {
-        "title": "Artwork 4",
-        "image": "/images/IMG-20250101-WA0023.jpg",
-        "description": "A surreal landscape exploring depth and dimension."
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "name": "John Doe",
-    "profileImage": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg",
-    "coverimage": "https://images.squarespace-cdn.com/content/v1/569591ff0ab3771dba3f1ec6/1650383193773-4E38HIVJMG16Q5MHD80A/JD+Solo+by+Todd+V+Wolfson.jpg?format=2500w",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg",
-    "occupation": "Musician",
-    "bio": "John Doe is a renowned musician known for his soulful jazz compositions. With over 20 years of experience, he has performed at prestigious venues worldwide.",
-    "achievements": [
-      "Grammy Award for Best Jazz Album (2020)",
-      "Jazz Musician of the Year (2019)",
-      "Performed at the Montreux Jazz Festival"
-    ],
-    "vision": "To inspire the next generation of musicians through the power of jazz.",
-    "contact": {
-      "email": "john.doe@example.com",
-      "linkedin": "https://linkedin.com/in/johndoe",
-      "twitter": "https://twitter.com/johndoe"
-    },
-    "artworks": [
-      {
-        "title": "Artwork 1",
+        "title": "Another Day Another Tale",
         "image": "/images/IMG-20250101-WA0024.jpg",
-        "description": "A modernist take on urban life."
+        "description": "This artwork captures a fleeting moment in the everyday journey of two siblings on an errand for their mama. Their backs are to the viewer, yet the scene speaks volumes about their bond, their world, and the stories they share along the way. With each passing day, these errands become adventures, with the children weaving fresh tales and playful stories, their imaginations running wild as they move through the familiar sights and sounds of their community. The piece captures the essence of childhood wonder, the innocence of sibling companionship, and the beauty of African life, where each day offers the promise of a new adventure, and every errand becomes a story waiting to unfold."
       },
       {
-        "title": "Artwork 2",
-        "image": "/images/IMG-20250101-WA0025.jpg",
-        "description": "A deep exploration of light and shadow."
+        "title": "Defined Identity",
+        "image": "/images/IMG-20250101-WA0023.jpg",
+        "description": "Defined Identity represents the clarity and strength that comes from embracing one's true self. It is the powerful understanding of who we are, free from external expectations and judgments. In the gaze of the subject, we see not just a reflection of physical appearance, but the deep-rooted certainty of a woman who has shaped her own path. Her eyes, though not directly engaging the viewer, seem to look beyond, as if lost in thought, yet there is an undeniable firmness in her expression. The subtle distraction adds a layer of complexity to her identity—she is neither fully present nor detached, but grounded in her own world, confident in her own thoughts. Through the lenses of her glasses, her perspective is sharpened, her identity clear, and her presence undeniable. This is a woman who knows her worth, stands firm in her truth, and embodies the essence of self-assurance."
+      },
+      {
+        "title": "Ngala - Embracing Beauty and Positivity in Womanhood",
+        "images": [
+          "/images/IMG-20250101-WA0020.jpg",
+          "/images/IMG-20250101-WA0021.jpg",
+          "/images/IMG-20250101-WA0022.jpg"
+        ],
+        "description": "Millicent's acrylic painting series, Ngala, is a mesmerizing portrayal of a woman's strength and beauty through a colorful depiction of flowers. The title of this magnificent body of work means 'pride' in Igbo language, spoken by the Igbo people of Nigeria. The painting series features busts of women adorned with loads of thick paste of colorful flowers on their heads, cascading down their faces and necks. The flowers symbolize the woman's willingness to replace the burdens and challenges of life with positivity and beauty. It is a message of hope for women to embrace their struggles and challenges and find strength in their beauty. Through the use of vibrant colors, intricate patterns, and delicate strokes, Millicent's artwork celebrates the diversity and uniqueness of womanhood. Each piece conveys a distinct emotional theme, yet they all have a common cultural representation of the African woman. The women in her paintings exude grace, elegance, and a strong feminine spirit. The Ngala series also conveys a message of self-love and empowerment to women. The women in the paintings wear their thorns as crowns, reminding us that the struggles we face in life are also a part of our journey, and we should embrace them without fear or shame. It is a call to every woman to wear her struggles as a badge of honor and use it as a tool for growth and positivity. Millicent's artwork is a beautiful celebration of the resilience and strength of women. It encourages every woman to embrace her beauty and positivity, even amidst life's challenges. Her artwork is a reminder that true strength comes from embracing our struggles and challenges and finding beauty in them. In conclusion, Ngala is a powerful and inspiring body of work that celebrates the beauty and strength of womanhood. It encourages women to wear their struggles with pride, embracing their journey with positivity and beauty. Through her artwork, Millicent inspires women to be proud of themselves, their culture, and their unique journey, reminding them that they are beautiful, strong, and worthy of pride."
+      },
+      {
+        "title":"‎ ",
+        "image": "/images/IMG-20250101-WA0024.jpg",
+        "description": "‎  "
       }
     ]
   }

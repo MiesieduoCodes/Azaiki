@@ -1,33 +1,88 @@
 {
-    "slider": [
-      {
-        "src": "https://images.pexels.com/photos/4238493/pexels-photo-4238493.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "title": "Neon Metropolis",
-        "description": "A cyberpunk-inspired cityscape glowing with vibrant digital brushstrokes."
-      },
-      {
-        "src": "https://images.pexels.com/photos/30618724/pexels-photo-30618724/free-photo-of-young-girl-working-at-computer-desk-in-dim-light.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "title": "Ethereal Dreams",
-        "description": "An abstract fusion of light and motion, capturing the essence of digital surrealism."
-      },
-      {
-        "src": "https://images.pexels.com/photos/4986496/pexels-photo-4986496.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "title": "AI & Creativity",
-        "description": "Exploring the intersection of human imagination and artificial intelligence in digital art."
-      },
-      {
-        "src": "https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "title": "Virtual Renaissance",
-        "description": "A modern twist on classical paintings, reimagined through digital techniques."
+  "slider": {
+    "slider_1": {
+      "src": "https://images.pexels.com/photos/4238493/pexels-photo-4238493.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Neon Metropolis",
+      "description": "A cyberpunk-inspired cityscape glowing with vibrant digital brushstrokes."
+    },
+    "slider_2": {
+      "src": "https://images.pexels.com/photos/30618724/pexels-photo-30618724/free-photo-of-young-girl-working-at-computer-desk-in-dim-light.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Ethereal Dreams",
+      "description": "An abstract fusion of light and motion, capturing the essence of digital surrealism."
+    },
+    "slider_3": {
+      "src": "https://images.pexels.com/photos/4986496/pexels-photo-4986496.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "AI & Creativity",
+      "description": "Exploring the intersection of human imagination and artificial intelligence in digital art."
+    },
+    "slider_4": {
+      "src": "https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Virtual Renaissance",
+      "description": "A modern twist on classical paintings, reimagined through digital techniques."
+    }
+  },
+  "exhibition": {
+    "exhibition_1": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 1",
+      "description": "An innovative digital artwork created using a modern tablet and stylus."
+    },
+    "exhibition_2": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 2",
+      "description": "A captivating digital piece showcasing the harmony of technology and art."
+    },
+    "exhibition_3": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 3",
+      "description": "A vibrant exploration of color and form in the digital realm."
+    },
+    "exhibition_4": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 4",
+      "description": "A bold digital statement that fuses traditional art techniques with modern technology."
+    },
+    "exhibition_5": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 5",
+      "description": "An immersive digital art experience that challenges the boundaries of creativity."
+    },
+    "exhibition_6": {
+      "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Digital Creation 6",
+      "description": "A futuristic vision rendered in vibrant digital hues and dynamic compositions."
+    }
+  },
+  "digitalArtists": {
+    "artist_1": {
+      "id": 1,
+      "name": "Digital Maven",
+      "bio": "Digital Maven pushes the boundaries of creativity with innovative digital paintings and immersive installations.",
+      "image": "https://via.placeholder.com/400x300",
+      "portfolio": {
+        "portfolio_1": "https://via.placeholder.com/400x300",
+        "portfolio_2": "https://via.placeholder.com/400x300"
       }
-    ],
-    "exhibition": [
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600"
-    ]
+    },
+    "artist_2": {
+      "id": 2,
+      "name": "Pixel Artisan",
+      "bio": "Pixel Artisan transforms pixels into powerful art, blending technology with traditional aesthetics.",
+      "image": "https://via.placeholder.com/400x300",
+      "portfolio": {
+        "portfolio_1": "https://via.placeholder.com/400x300",
+        "portfolio_2": "https://via.placeholder.com/400x300"
+      }
+    },
+    "artist_3": {
+      "id": 3,
+      "name": "Techno Scribe",
+      "bio": "Techno Scribe is known for dynamic digital compositions that tell compelling stories through futuristic visuals.",
+      "image": "https://via.placeholder.com/400x300",
+      "portfolio": {
+        "portfolio_1": "https://via.placeholder.com/400x300",
+        "portfolio_2": "https://via.placeholder.com/400x300"
+      }
+    }
   }
-  
+}

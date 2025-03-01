@@ -19,12 +19,12 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // Import your data
-import { contemporary, artist, testimonials, navadata, nigerdelta, generalarts } from './components/constants/main.js'; // Adjust if necessary
+import { africanartists, digitalarts, testimonials, generalarts, nigerdelta, artist, contemporary, sculptures } from './components/constants/main.js'; 
 
 // Function to push data to Firebase
 const pushDataToFirebase = async () => {
     try {
-        const dataToPush = { contemporary, artist, testimonials, navadata, nigerdelta, generalarts };
+        const dataToPush = { africanartists, digitalarts, testimonials, generalarts, nigerdelta, artist, contemporary, sculptures };
 
         await Promise.all(
             Object.entries(dataToPush).map(async ([key, value]) => {

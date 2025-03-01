@@ -12,7 +12,6 @@ const Navbar = () => {
   const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-
   useEffect(() => {
     setMenuData(Navdata[0]);
   }, []);
@@ -23,6 +22,11 @@ const Navbar = () => {
 
   const toggleDropdown = (index) => {
     setActiveDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleLinkClick = () => {
+    setActiveDropdownIndex(null); // Close the dropdown on link click
+    setIsMobileMenuOpen(false); // Close the mobile menu on link click
   };
 
   return (
@@ -62,7 +66,7 @@ const Navbar = () => {
                       />
                     </button>
                     {activeDropdownIndex === index && (
-                      <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-black shadow-lg rounded-lg p-2 ">
+                      <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-black shadow-lg rounded-lg p-2">
                         <ul>
                           {item.items.map((subItem, subIndex) => (
                             <li key={subIndex} className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
@@ -70,6 +74,7 @@ const Navbar = () => {
                                 href={subItem.url} 
                                 label={subItem.title}
                                 className="block w-full text-left"
+                                onClick={handleLinkClick} // Close dropdown on link click
                               />
                             </li>
                           ))}
@@ -83,6 +88,7 @@ const Navbar = () => {
                       href={item.url}
                       label={item.title}
                       className="font-semibold px-4 py-2 hover:text-gray-500 dark:hover:text-gray-400 transition-colors"
+                      onClick={handleLinkClick} // Close dropdown on link click
                     />
                   </div>
                 )}
@@ -134,6 +140,7 @@ const Navbar = () => {
                                     href={subItem.url}
                                     label={subItem.title}
                                     className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                                    onClick={handleLinkClick} // Close dropdown on link click
                                   />
                                 </li>
                               ))}
@@ -146,6 +153,7 @@ const Navbar = () => {
                             href={item.url}
                             label={item.title}
                             className="block font-medium"
+                            onClick={handleLinkClick} // Close dropdown on link click
                           />
                         </div>
                       )}

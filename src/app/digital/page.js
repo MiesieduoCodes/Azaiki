@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Swiper from "swiper";
 import "swiper/css";
 
@@ -26,29 +26,20 @@ const Gallery = () => {
         prevEl: ".swiper-button-prev",
       },
       breakpoints: {
-        1920: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-        1400: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-        900: {
-          slidesPerView: 3,
-          spaceBetween: 15,
-        },
-        200: {
-          slidesPerView: 2,
-          spaceBetween: 15,
-        },
+        1920: { slidesPerView: 3, spaceBetween: 20 },
+        1400: { slidesPerView: 3, spaceBetween: 20 },
+        900: { slidesPerView: 3, spaceBetween: 15 },
+        200: { slidesPerView: 2, spaceBetween: 15 },
       },
     });
   }, []);
 
-  // Extract slider and exhibition data from the combined JSON file
-  const sliderData = galleryData.slider;
-  const exhibitionData = galleryData.exhibition;
+  // Extract data from the combined JSON file using Object.values for objects
+  const sliderData = galleryData.slider ? Object.values(galleryData.slider) : [];
+  const exhibitionData = galleryData.exhibition ? Object.values(galleryData.exhibition) : [];
+  const digitalArtistsData = galleryData.digitalArtists
+    ? Object.values(galleryData.digitalArtists)
+    : [];
 
   return (
     <div>
@@ -127,8 +118,6 @@ const Gallery = () => {
             </button>
           </div>
         </div>
-
-        {/* Custom Styles for Slider */}
         <style jsx>{`
           .gallery-top .swiper-slide {
             height: fit-content;
@@ -184,21 +173,58 @@ const Gallery = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-14">
-            {exhibitionData.map((img, index) => (
+            {exhibitionData.map((item, index) => (
               <div key={index} className="block">
                 <Image
-                  src={img}
-                  alt="Digital artwork on display"
+                  src={item.src}
+                  alt={item.title}
                   width={400}
                   height={300}
                   className="w-full rounded-lg object-cover"
                 />
+                <div className="mt-4">
+                  <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600 mt-2">{item.description}</p>
+                </div>
               </div>
             ))}
           </div>
           <button className="w-full rounded-lg py-4 px-6 text-center bg-indigo-100 dark:bg-yellow-500 text-lg font-medium text-black transition-all duration-300 hover:text-white hover:bg-indigo-600">
             View More Artworks
           </button>
+        </div>
+      </section>
+
+      {/* Digital Artists Section */}
+      <section className="py-24 relative bg-white dark:bg-black">
+        <div className="w-full max-w-7xl px-6 lg:px-8 mx-auto">
+          <div className="flex flex-col items-center justify-center gap-5 mb-14">
+            <h2 className="font-manrope font-bold text-4xl dark:text-yellow-500 text-gray-900 text-center">
+              Digital Artists
+            </h2>
+            <p className="text-lg font-normal dark:text-white text-gray-800 max-w-3xl mx-auto text-center">
+              Meet the innovative minds behind these digital masterpieces.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {digitalArtistsData.map((artist, index) => (
+              <div key={index} className="block text-center">
+                <Image
+                  src={artist.image}
+                  alt={artist.name}
+                  width={400}
+                  height={300}
+                  className="w-full rounded-lg object-cover mb-4"
+                />
+                <h3 className="text-xl font-bold dark:text-yellow-500 text-gray-900">
+                  {artist.name}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {artist.bio}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -213,7 +239,6 @@ const Gallery = () => {
         }}
       >
         <div className="hero-overlay absolute inset-0 bg-black bg-opacity-70"></div>
-
         <div className="hero-content text-neutral-content text-center relative z-10">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold text-white">
@@ -230,7 +255,6 @@ const Gallery = () => {
                 </span>
               </a>
               <style jsx>{`
-              
                 .button {
                   -moz-appearance: none;
                   -webkit-appearance: none;

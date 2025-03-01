@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import ArtworkCarousel from "@/app/components/ArtworkCarousel";
 import artistsData from "@/app/components/constants/artists.json";
-import { FaEnvelope, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const ArtistProfilePage = () => {
   const params = useParams();

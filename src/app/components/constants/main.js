@@ -1,82 +1,85 @@
 
-const testimonials = [
-  {
-    "quote": "Azaiki Art Gallery is an exceptional space...",
-    "name": "Jane Doe",
-    "role": "Contemporary Artist",
-    "image": "https://example.com/images/jane_doe.jpg"
-  },
-  {
-    "quote": "The museum's collection is a journey through time...",
-    "name": "John Smith",
-    "role": "Art Historian",
-    "image": "https://example.com/images/john_smith.jpg"
-  },
-  {
-    "quote": "Visiting Azaiki Art Gallery was an enlightening experience...",
-    "name": "Emily Williams",
-    "role": "Art Enthusiast",
-    "image": "https://example.com/images/emily_williams.jpg"
-  },
-  {
-    "quote": "As an artist, it was an honor to have my pieces displayed...",
-    "name": "Millicent Osumuo Onuegbu",
-    "role": "Contemporary Artist",
-    "image": "/images/IMG-20250101-WA0022.jpg"
-  },
-  {
-    "quote": "Azaiki Art Gallery and Museum provides an immersive experience...",
-    "name": "Sophia Brown",
-    "role": "Museum Curator",
-    "image": "https://example.com/images/sophia_brown.jpg"
-  }
-];
-
-const artist = [
-  {
-    "artists": {
-      "artist_1": {
-        "name": "Milicent Osumuo Onuegbu",
-        "profileImage": "https://tecxposition.com/wp-content/uploads/elementor/thumbs/Millicent-Osumuo-Onuegbu-bw-pmrlzsis7dqwy4h7run98ibiuz3y9cdvyxlhw2ucvs.jpg",
-        "coverImage": "/images/IMG-20250207-WA0018.jpg",
-        "image": "/images/IMG-20250101-WA0022.jpg",
-        "occupation": "Contemporary Artist",
-        "bio": "Millicent Osumuo Onuegbu is a Nigerian contemporary artist and artpreneur. Growing up in a home influenced by her father, a self-taught artist, Millicent's early exposure to art ignited her passion for painting and drawing. She honed her skills at the University of Uyo, Akwa-Ibom State, where she earned a Bachelor of Arts (BA) in Painting in 2002. In 2005, Millicent established Colourmimi Studio in Abuja, where she has continued her full-time artistic practice. Her work reflects her diverse life experiences and explores a range of themes, resulting in a vibrant and dynamic portfolio that has earned her numerous exhibitions, collaborations, and accolades. Millicent also pursued further business education, completing an Owner Manager Programme at the Lagos Business School in 2022 and currently studying Strategy and Innovation.",
-        "achievements": {
-          "achievement_1": "Artist of the Year Award (2021)",
-          "achievement_2": "Solo Exhibition at the Tate Modern"
-        },
-        "vision": "To create art that evokes deep emotional connections.",
-        "contact": {
-          "email": "jane.smith@example.com",
-          "linkedin": "https://linkedin.com/in/janesmith",
-          "twitter": "https://twitter.com/janesmith"
-        },
-        "artworks": {
-          "artwork_1": {
-            "title": "Another Day, Another Tale",
-            "image": "/images/IMG-20250101-WA0024.jpg",
-            "description": "This artwork captures a fleeting moment in the everyday journey of two siblings on an errand for their mama. Their backs are to the viewer, yet the scene speaks volumes about their bond, their world, and the stories they share."
-          },
-          "artwork_2": {
-            "title": "Defined Identity",
-            "image": "/images/IMG-20250101-WA0021.jpg",
-            "description": "A fusion of colors inspired by nature."
-          },
-          "artwork_3": {
-            "title": "Abstract Art 3",
-            "image": "/images/IMG-20250101-WA0022.jpg",
-            "description": "A minimalist approach to human emotions."
-          }
-        }
-      }
+  const testimonials = [
+    {
+      "quote": "Azaiki Art Gallery is an exceptional space...",
+      "name": "Jane Doe",
+      "role": "Contemporary Artist",
+      "image": "https://example.com/images/jane_doe.jpg"
+    },
+    {
+      "quote": "The museum's collection is a journey through time...",
+      "name": "John Smith",
+      "role": "Art Historian",
+      "image": "https://example.com/images/john_smith.jpg"
+    },
+    {
+      "quote": "Visiting Azaiki Art Gallery was an enlightening experience...",
+      "name": "Emily Williams",
+      "role": "Art Enthusiast",
+      "image": "https://example.com/images/emily_williams.jpg"
+    },
+    {
+      "quote": "As an artist, it was an honor to have my pieces displayed...",
+      "name": "Millicent Osumuo Onuegbu",
+      "role": "Contemporary Artist",
+      "image": "/images/IMG-20250101-WA0022.jpg"
+    },
+    {
+      "quote": "Azaiki Art Gallery and Museum provides an immersive experience...",
+      "name": "Sophia Brown",
+      "role": "Museum Curator",
+      "image": "https://example.com/images/sophia_brown.jpg"
     }
-  }  
   ];
 
+  const artist = [
+    {
+      "id": 1,
+      "name": "Milicent Osumuo Onuegbu",
+      "profileImage": "/images/IMG-20250207-WA0018.jpg",
+      "coverimage": "/images/IMG-20250101-WA0020.jpg",
+      "image": "/images/IMG-20250101-WA0022.jpg",
+      "occupation": "Contemporary Artist",
+      "bio": "Millicent Osumuo Onuegbu is a Nigerian contemporary artist and artpreneur. Growing up in a home influenced by her father, a self-taught artist, Millicent's early exposure to art ignited her passion for painting and drawing. She honed her skills at the University of Uyo, Akwa-Ibom State, where she earned a Bachelor of Arts (BA) in Painting in 2002. In 2005, Millicent established Colourmimi Studio in Abuja, where she has continued her full-time artistic practice. Her work reflects her diverse life experiences and explores a range of themes, resulting in a vibrant and dynamic portfolio that has earned her numerous exhibitions, collaborations, and accolades. Millicent also pursued further business education, completing an Owner Manager Programme at the Lagos Business School in 2022 and currently studying Strategy and Innovation. This blend of artistic and business expertise allows her to approach her creative practice with a well-rounded perspective, strengthening her position as a leading contemporary artist and entrepreneur.",
+      "achievements": [
+        "Artist of the Year Award (2021)",
+        "Solo Exhibition at the Tate Modern"
+      ],
+      "vision": "To create art that evokes deep emotional connections.",
+      "contact": {
+        "email": "jane.smith@example.com",
+        "linkedin": "https://linkedin.com/in/janesmith",
+        "twitter": "https://twitter.com/janesmith"
+      },
+      "artworks": [
+        {
+          "title": "Another Day Another Tale",
+          "image": "/images/IMG-20250101-WA0024.jpg",
+          "description": "This artwork captures a fleeting moment in the everyday journey of two siblings on an errand for their mama. Their backs are to the viewer, yet the scene speaks volumes about their bond, their world, and the stories they share along the way. With each passing day, these errands become adventures, with the children weaving fresh tales and playful stories, their imaginations running wild as they move through the familiar sights and sounds of their community. The piece captures the essence of childhood wonder, the innocence of sibling companionship, and the beauty of African life, where each day offers the promise of a new adventure, and every errand becomes a story waiting to unfold."
+        },
+        {
+          "title": "Defined Identity",
+          "image": "/images/IMG-20250101-WA0023.jpg",
+          "description": "Defined Identity represents the clarity and strength that comes from embracing one's true self. It is the powerful understanding of who we are, free from external expectations and judgments. In the gaze of the subject, we see not just a reflection of physical appearance, but the deep-rooted certainty of a woman who has shaped her own path. Her eyes, though not directly engaging the viewer, seem to look beyond, as if lost in thought, yet there is an undeniable firmness in her expression. The subtle distraction adds a layer of complexity to her identity—she is neither fully present nor detached, but grounded in her own world, confident in her own thoughts. Through the lenses of her glasses, her perspective is sharpened, her identity clear, and her presence undeniable. This is a woman who knows her worth, stands firm in her truth, and embodies the essence of self-assurance."
+        },
+        {
+          "title": "Ngala - Embracing Beauty and Positivity in Womanhood",
+          "images": [
+            "/images/IMG-20250101-WA0020.jpg",
+            "/images/IMG-20250101-WA0021.jpg",
+            "/images/IMG-20250101-WA0022.jpg"
+          ],
+          "description": "Millicent's acrylic painting series, Ngala, is a mesmerizing portrayal of a woman's strength and beauty through a colorful depiction of flowers. The title of this magnificent body of work means 'pride' in Igbo language, spoken by the Igbo people of Nigeria. The painting series features busts of women adorned with loads of thick paste of colorful flowers on their heads, cascading down their faces and necks. The flowers symbolize the woman's willingness to replace the burdens and challenges of life with positivity and beauty. It is a message of hope for women to embrace their struggles and challenges and find strength in their beauty. Through the use of vibrant colors, intricate patterns, and delicate strokes, Millicent's artwork celebrates the diversity and uniqueness of womanhood. Each piece conveys a distinct emotional theme, yet they all have a common cultural representation of the African woman. The women in her paintings exude grace, elegance, and a strong feminine spirit. The Ngala series also conveys a message of self-love and empowerment to women. The women in the paintings wear their thorns as crowns, reminding us that the struggles we face in life are also a part of our journey, and we should embrace them without fear or shame. It is a call to every woman to wear her struggles as a badge of honor and use it as a tool for growth and positivity. Millicent's artwork is a beautiful celebration of the resilience and strength of women. It encourages every woman to embrace her beauty and positivity, even amidst life's challenges. Her artwork is a reminder that true strength comes from embracing our struggles and challenges and finding beauty in them. In conclusion, Ngala is a powerful and inspiring body of work that celebrates the beauty and strength of womanhood. It encourages women to wear their struggles with pride, embracing their journey with positivity and beauty. Through her artwork, Millicent inspires women to be proud of themselves, their culture, and their unique journey, reminding them that they are beautiful, strong, and worthy of pride."
+        },
+        {
+          "title":"‎ ",
+          "image": "/images/IMG-20250101-WA0024.jpg",
+          "description": "‎  "
+        }
+      ]
+    }
+    ];
 
-
-  
   const nigerdelta = [
     {
       "nigerDelta": {
@@ -356,7 +359,6 @@ const artist = [
         }
       }
     ];
-    
 
     const sculptures = [
       {
@@ -446,5 +448,97 @@ const artist = [
       
       ];
 
+      const digitalarts = [
+        {
+          "slider": {
+            "slider_1": {
+              "src": "https://images.pexels.com/photos/4238493/pexels-photo-4238493.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Neon Metropolis",
+              "description": "A cyberpunk-inspired cityscape glowing with vibrant digital brushstrokes."
+            },
+            "slider_2": {
+              "src": "https://images.pexels.com/photos/30618724/pexels-photo-30618724/free-photo-of-young-girl-working-at-computer-desk-in-dim-light.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Ethereal Dreams",
+              "description": "An abstract fusion of light and motion, capturing the essence of digital surrealism."
+            },
+            "slider_3": {
+              "src": "https://images.pexels.com/photos/4986496/pexels-photo-4986496.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "AI & Creativity",
+              "description": "Exploring the intersection of human imagination and artificial intelligence in digital art."
+            },
+            "slider_4": {
+              "src": "https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Virtual Renaissance",
+              "description": "A modern twist on classical paintings, reimagined through digital techniques."
+            }
+          },
+          "exhibition": {
+            "exhibition_1": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 1",
+              "description": "An innovative digital artwork created using a modern tablet and stylus."
+            },
+            "exhibition_2": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 2",
+              "description": "A captivating digital piece showcasing the harmony of technology and art."
+            },
+            "exhibition_3": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 3",
+              "description": "A vibrant exploration of color and form in the digital realm."
+            },
+            "exhibition_4": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 4",
+              "description": "A bold digital statement that fuses traditional art techniques with modern technology."
+            },
+            "exhibition_5": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 5",
+              "description": "An immersive digital art experience that challenges the boundaries of creativity."
+            },
+            "exhibition_6": {
+              "src": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "title": "Digital Creation 6",
+              "description": "A futuristic vision rendered in vibrant digital hues and dynamic compositions."
+            }
+          },
+          "digitalArtists": {
+            "artist_1": {
+              "id": 1,
+              "name": "Digital Maven",
+              "bio": "Digital Maven pushes the boundaries of creativity with innovative digital paintings and immersive installations.",
+              "image": "https://via.placeholder.com/400x300",
+              "portfolio": {
+                "portfolio_1": "https://via.placeholder.com/400x300",
+                "portfolio_2": "https://via.placeholder.com/400x300"
+              }
+            },
+            "artist_2": {
+              "id": 2,
+              "name": "Pixel Artisan",
+              "bio": "Pixel Artisan transforms pixels into powerful art, blending technology with traditional aesthetics.",
+              "image": "https://via.placeholder.com/400x300",
+              "portfolio": {
+                "portfolio_1": "https://via.placeholder.com/400x300",
+                "portfolio_2": "https://via.placeholder.com/400x300"
+              }
+            },
+            "artist_3": {
+              "id": 3,
+              "name": "Techno Scribe",
+              "bio": "Techno Scribe is known for dynamic digital compositions that tell compelling stories through futuristic visuals.",
+              "image": "https://via.placeholder.com/400x300",
+              "portfolio": {
+                "portfolio_1": "https://via.placeholder.com/400x300",
+                "portfolio_2": "https://via.placeholder.com/400x300"
+              }
+            }
+          }
+        }
+        
+      ];
 
-    export {africanartists, testimonials, generalarts, nigerdelta, artist, contemporary, sculptures};
+
+    export {africanartists, digitalarts, testimonials, generalarts, nigerdelta, artist, contemporary, sculptures};
