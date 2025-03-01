@@ -1,51 +1,110 @@
 [
-    {
-      "id": 1,
-      "name": "Artist 1",
-      "image": "https://via.placeholder.com/400x300",
-      "description": "A brief description of Artist 1's work and style.",
-      "bio": "Artist 1 is known for their abstract paintings that explore the relationship between light and color. Their work has been featured in numerous exhibitions worldwide.",
-      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
-    },
-    {
-      "id": 2,
-      "name": "Artist 2",
-      "image": "https://via.placeholder.com/400x300",
-      "description": "A brief description of Artist 2's work and style.",
-      "bio": "Artist 2 specializes in modern sculptures that challenge traditional notions of form and space.",
-      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
-    },
-    {
-      "id": 3,
-      "name": "Artist 3",
-      "image": "https://via.placeholder.com/400x300",
-      "description": "A brief description of Artist 3's work and style.",
-      "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
-      "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
-    },
-    {
+  {
+    "contemporaryArtists": {
+      "artist_1": {
+        "id": 1,
+        "name": "Artist 1",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 1's work and style.",
+        "bio": "Artist 1 is known for their abstract paintings that explore the relationship between light and color. Their work has been featured in numerous exhibitions worldwide.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
+      },
+      "artist_2": {
+        "id": 2,
+        "name": "Artist 2",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 2's work and style.",
+        "bio": "Artist 2 specializes in modern sculptures that challenge traditional notions of form and space.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
+      },
+      "artist_3": {
+        "id": 3,
+        "name": "Artist 3",
+        "image": "https://via.placeholder.com/400x300",
+        "description": "A brief description of Artist 3's work and style.",
+        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
+      },
+      "artist_4": {
         "id": 4,
         "name": "Artist 4",
         "image": "https://via.placeholder.com/400x300",
-        "description": "A brief description of Artist 3's work and style.",
-        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
-        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+        "description": "A brief description of Artist 4's work and style.",
+        "bio": "Artist 4 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
       },
-      {
+      "artist_5": {
         "id": 5,
         "name": "Artist 5",
         "image": "https://via.placeholder.com/400x300",
-        "description": "A brief description of Artist 3's work and style.",
-        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
-        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+        "description": "A brief description of Artist 5's work and style.",
+        "bio": "Artist 5 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
       },
-      {
+      "artist_6": {
         "id": 6,
         "name": "Artist 6",
         "image": "https://via.placeholder.com/400x300",
-        "description": "A brief description of Artist 3's work and style.",
-        "bio": "Artist 3 is a digital artist focusing on futuristic themes and immersive virtual environments.",
-        "portfolio": ["https://via.placeholder.com/400x300", "https://via.placeholder.com/400x300"]
+        "description": "A brief description of Artist 6's work and style.",
+        "bio": "Artist 6 is a digital artist focusing on futuristic themes and immersive virtual environments.",
+        "portfolio": {
+          "portfolio_1": "https://via.placeholder.com/400x300",
+          "portfolio_2": "https://via.placeholder.com/400x300"
+        }
       }
+    },
+    "galleryImages": {
+      "artworks": {
+        "artwork_1": {
+          "src": "https://images.pexels.com/photos/4238493/pexels-photo-4238493.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "title": "Urban Vibrance",
+          "description": "A striking portrayal of modern urban life, where vivid colors and dynamic forms capture the pulse of the city."
+        },
+        "artwork_2": {
+          "src": "https://images.pexels.com/photos/30618724/pexels-photo-30618724/free-photo-of-young-girl-working-at-computer-desk-in-dim-light.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "title": "Ethereal Dreams",
+          "description": "An abstract interplay of light and color that invites introspection and celebrates contemporary expression."
+        },
+        "artwork_3": {
+          "src": "https://images.pexels.com/photos/4986496/pexels-photo-4986496.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "title": "Modern Confluence",
+          "description": "A reflective composition where diverse cultural influences converge to create a dialogue between past and present."
+        },
+        "artwork_4": {
+          "src": "https://images.pexels.com/photos/3082341/pexels-photo-3082341.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "title": "Contemporary Renaissance",
+          "description": "A reinterpretation of classical aesthetics through a bold contemporary lens, blending heritage with avant-garde innovation."
+        }
+      },
+      "artists": {
+        "artist_1": {
+          "name": "Alice Johnson",
+          "bio": "A contemporary artist known for her vibrant use of color and abstract forms.",
+          "image": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600"
+        },
+        "artist_2": {
+          "name": "Mark Smith",
+          "bio": "An innovative sculptor whose works explore the intersection of technology and nature.",
+          "image": "https://images.pexels.com/photos/30693629/pexels-photo-30693629/free-photo-of-digital-art-creation-on-tablet-with-stylus.jpeg?auto=compress&cs=tinysrgb&w=600"
+        }
+      }
+    }
+  }
+  
   ]
   

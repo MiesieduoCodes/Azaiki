@@ -213,12 +213,13 @@ const Gallery = () => {
         }}
       >
         <div className="hero-overlay absolute inset-0 bg-black bg-opacity-70"></div>
+
         <div className="hero-content text-neutral-content text-center relative z-10">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold text-light-text dark:text-dark-text">
+            <h1 className="mb-5 text-5xl font-bold text-white">
               Want to be a digital artist with the museum?
             </h1>
-            <p className="mb-5 text-light-text dark:text-dark-text">
+            <p className="mb-5 text-white">
               Join us to explore your creativity and showcase your digital art in a vibrant community where art meets innovation.
             </p>
             <button className="button">
@@ -229,6 +230,7 @@ const Gallery = () => {
                 </span>
               </a>
               <style jsx>{`
+              
                 .button {
                   -moz-appearance: none;
                   -webkit-appearance: none;

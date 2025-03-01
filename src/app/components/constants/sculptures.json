@@ -1,0 +1,49 @@
+{
+    "sculptures": [
+      {
+        "id": 1,
+        "title": "David",
+        "artistId": 1,
+        "year": 1504,
+        "description": "A masterpiece of Renaissance sculpture by Michelangelo.",
+        "image": "/images/david.jpg"
+      },
+      {
+        "id": 2,
+        "title": "The Thinker",
+        "artistId": 2,
+        "year": 1904,
+        "description": "A bronze sculpture by Auguste Rodin.",
+        "image": "/images/the-thinker.jpg"
+      },
+      {
+        "id": 3,
+        "title": "Venus de Milo",
+        "artistId": 3,
+        "year": "130-100 BC",
+        "description": "An iconic ancient Greek statue that has captivated audiences for centuries.",
+        "image": "/images/venus-de-milo.jpg"
+      }
+    ],
+    "artists": [
+      {
+        "id": 1,
+        "name": "Michelangelo",
+        "bio": "An Italian sculptor, painter, architect, and poet of the High Renaissance.",
+        "image": "/images/michelangelo.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Auguste Rodin",
+        "bio": "A French sculptor known as the progenitor of modern sculpture.",
+        "image": "/images/rodin.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Unknown Greek Artist",
+        "bio": "The creator behind the timeless beauty of Venus de Milo remains a mystery.",
+        "image": "/images/greek-artist.jpg"
+      }
+    ]
+  }
+  

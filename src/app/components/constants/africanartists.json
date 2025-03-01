@@ -1,0 +1,31 @@
+{
+    "artists": {
+      "artist_1": {
+        "id": 1,
+        "name": "Alice",
+        "description": "Artist description",
+        "image": "https://via.placeholder.com/400x300"
+      },
+      "artist_2": {
+        "id": 2,
+        "name": "Bob",
+        "description": "Artist description",
+        "image": "https://via.placeholder.com/400x300"
+      }
+    },
+    "artPieces": {
+      "artPiece_1": {
+        "id": 1,
+        "title": "Art 1",
+        "description": "A brief description of Art 1.",
+        "image": "https://via.placeholder.com/400x300"
+      },
+      "artPiece_2": {
+        "id": 2,
+        "title": "Art 2",
+        "description": "A brief description of Art 2.",
+        "image": "https://via.placeholder.com/400x300"
+      }
+    }
+  }
+  

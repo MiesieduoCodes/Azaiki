@@ -22,14 +22,10 @@ const Home = () => {
   const [alertMessage, setAlertMessage] = useState(null);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertType, setAlertType] = useState('success'); // 'success' or 'error'
-  const [theme, setTheme] = useState('dark'); // 'light' or 'dark'
 
   const auth = getAuth();
 
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
+  // Function to show alerts
   const showAlert = (message, type = 'success') => {
     setAlertMessage(message);
     setAlertType(type);
@@ -176,18 +172,10 @@ const Home = () => {
   };
 
   return (
-    <div className={`min-h-screen p-6 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
-      {/* Theme Toggle Button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed top-4 right-4 p-2 rounded-full bg-yellow-500 text-black"
-      >
-        {theme === 'dark' ? '☀️' : '🌙'}
-      </button>
-
+    <div className="p-6 bg-gray-800 text-white">
       {/* Alert Component */}
       {isAlertOpen && (
-        <div className="fixed top-4 right-16 z-50">
+        <div className="fixed top-4 right-4 z-50">
           <div className={`p-4 rounded shadow-lg ${alertType === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
             {alertMessage}
           </div>
@@ -207,7 +195,7 @@ const Home = () => {
             </button>
             <ul className="space-y-2">
               {(artist || []).map((user, index) => (
-                <li key={index} className={`p-4 rounded shadow-md ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <li key={index} className="bg-gray-700 p-4 rounded shadow-md">
                   {user.name}
                   <button
                     onClick={() => openModal(user)}
@@ -233,7 +221,7 @@ const Home = () => {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(contemporary || []).map((cont, index) => (
-                <div key={index} className={`p-4 rounded shadow-md ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
                   <h2 className="text-xl font-semibold">{cont.name}</h2>
                   <img src={cont.image} alt={cont.name} className="w-full h-48 object-cover rounded mb-2" />
                   <p>{cont.bio || "Biography not available."}</p>
@@ -270,7 +258,7 @@ const Home = () => {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(generalArts || []).map((art, index) => (
-                <div key={index} className={`p-4 rounded shadow-md ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div key={index} className={`bg-gray-700 p-4 rounded shadow-md ${art.background}`}>
                   <h2 className="text-xl font-semibold">{art.title}</h2>
                   <ul className="space-y-2">
                     {(art.items || []).map((item, itemIndex) => (
@@ -305,7 +293,7 @@ const Home = () => {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(nigerDelta || []).map((artist, index) => (
-                <div key={index} className={`p-4 rounded shadow-md ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md">
                   <h2 className="text-xl font-semibold">{artist.name}</h2>
                   <p>{artist.bio}</p>
                   <h3 className="font-bold mt-2">Artworks</h3>
@@ -341,7 +329,7 @@ const Home = () => {
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(testimonials || []).map((testimonial, index) => (
-                <div key={index} className={`p-4 rounded shadow-md flex flex-col items-center ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div key={index} className="bg-gray-700 p-4 rounded shadow-md flex flex-col items-center">
                   <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full mb-2" />
                   <h2 className="font-bold">{testimonial.name}</h2>
                   <p className="italic">{testimonial.role}</p>
@@ -365,7 +353,7 @@ const Home = () => {
 
           {isModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className={`p-6 rounded shadow-lg max-w-md w-full ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4">Edit Data</h2>
                 <form onSubmit={handleUpdate}>
                   <div className="mb-4">
@@ -374,7 +362,7 @@ const Home = () => {
                       type="text"
                       value={selectedData?.name || ""}
                       onChange={(e) => setSelectedData({ ...selectedData, name: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="mb-4">
@@ -382,7 +370,7 @@ const Home = () => {
                     <textarea
                       value={selectedData?.bio || ""}
                       onChange={(e) => setSelectedData({ ...selectedData, bio: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="mb-4">
@@ -391,7 +379,7 @@ const Home = () => {
                       type="text"
                       value={selectedData?.image || ""}
                       onChange={(e) => setSelectedData({ ...selectedData, image: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="flex justify-between">
@@ -409,7 +397,7 @@ const Home = () => {
 
           {isAddModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className={`p-6 rounded shadow-lg max-w-md w-full ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4">Add New Item</h2>
                 <form onSubmit={(e) => handleAdd(e, "artist")}> {/* Adjust the category as necessary */}
                   <div className="mb-4">
@@ -418,7 +406,7 @@ const Home = () => {
                       type="text"
                       value={newItem.name || ""}
                       onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="mb-4">
@@ -426,7 +414,7 @@ const Home = () => {
                     <textarea
                       value={newItem.bio || ""}
                       onChange={(e) => setNewItem({ ...newItem, bio: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="mb-4">
@@ -435,7 +423,7 @@ const Home = () => {
                       type="text"
                       value={newItem.image || ""}
                       onChange={(e) => setNewItem({ ...newItem, image: e.target.value })}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                     />
                   </div>
                   <div className="flex justify-between">
@@ -453,7 +441,7 @@ const Home = () => {
 
           {isLoginModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div className={`p-6 rounded shadow-lg max-w-md w-full ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="bg-gray-800 p-6 rounded shadow-lg max-w-md w-full">
                 <h2 className="text-2xl font-bold mb-4">Login</h2>
                 <form onSubmit={handleLogin}>
                   <div className="mb-4">
@@ -462,7 +450,7 @@ const Home = () => {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                       required
                     />
                   </div>
@@ -472,7 +460,7 @@ const Home = () => {
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className={`w-full p-2 rounded ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}
+                      className="w-full p-2 rounded bg-gray-700"
                       required
                     />
                   </div>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
-// import Footer from "@/app/components/footer";
+import Testimonials from "@/app/components/testimonials"; 
 
 const AzaikiArtGallery = () => {
   useEffect(() => {
@@ -28,14 +28,20 @@ const AzaikiArtGallery = () => {
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2 }
     );
-    
+
     gsap.fromTo(
       '.event',
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2 }
     );
-    
+
+    gsap.fromTo(
+      '.video-card',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2, delay: 0.5 }
+    );
   }, []);
+
   const galleryItems = [
     {
       image: 'https://momaa.org/wp-content/uploads/2023/04/benin.jpeg',
@@ -58,15 +64,16 @@ const AzaikiArtGallery = () => {
       description: 'A contemporary installation that blends innovation with tradition.'
     }
   ];
+
   const videoItems = [
     { videoUrl: "https://videos.pexels.com/video-files/4067804/4067804-uhd_2732_1440_25fps.mp4", title: "Artist Spotlight" },
     { videoUrl: "https://videos.pexels.com/video-files/5764706/5764706-uhd_2560_1440_30fps.mp4", title: "Gallery Tour" },
   ];
+
   return (
     <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen">
-    {/* Hero Section */}
-    <section className="relative text-white py-20 pt-44 px-6 text-center">
-        {/* Video Background */}
+      {/* Hero Section */}
+      <section className="relative text-white py-20 pt-44 px-6 text-center">
         <video
           autoPlay
           loop
@@ -76,9 +83,7 @@ const AzaikiArtGallery = () => {
         >
           <source src="https://videos.pexels.com/video-files/5764706/5764706-uhd_2560_1440_30fps.mp4" type="video/mp4" />
         </video>
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-        {/* Content */}
         <div className="relative z-20 max-w-screen-xl mx-auto">
           <h1 className="hero-text text-5xl font-extrabold leading-tight mb-4">
             Welcome to the Azaiki Art Gallery and Museum
@@ -98,10 +103,12 @@ const AzaikiArtGallery = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {videoItems.map((item, index) => (
-              <div key={index} className="rounded-lg overflow-hidden shadow-lg">
+              <div key={index} className="video-card rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
                 <video
-                autoPlay
-                muted
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-64 object-cover rounded-lg"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -115,124 +122,97 @@ const AzaikiArtGallery = () => {
         </div>
       </section>
 
-    {/* About Section */}
-<section className="py-16 px-6 bg-white dark:bg-black">
-  <div className="max-w-screen-md mx-auto text-center">
-    <h2 className="about-content text-4xl font-extrabold text-yellow-500 mb-6">
-      About Us
-    </h2>
-    <p className="about-content text-lg text-black dark:text-white mb-4">
-      The Azaiki Art Gallery and Museum is a sanctuary for art enthusiasts and cultural explorers. Located in the heart of artistic expression, our gallery showcases a diverse array of artwork, from traditional masterpieces to contemporary creations.
-    </p>
-    <p className="about-content text-lg text-black dark:text-white">
-      Our mission is to preserve and promote the rich cultural heritage of our community while inspiring future generations.
-    </p>
-  </div>
-</section>
+      {/* About Section */}
+      <section className="py-16 px-6 bg-white dark:bg-black">
+        <div className="max-w-screen-md mx-auto text-center">
+          <h2 className="about-content text-4xl font-extrabold text-yellow-500 mb-6">
+            About Us
+          </h2>
+          <p className="about-content text-lg text-black dark:text-white mb-4">
+            The Azaiki Art Gallery and Museum is a sanctuary for art enthusiasts and cultural explorers. Located in the heart of artistic expression, our gallery showcases a diverse array of artwork, from traditional masterpieces to contemporary creations.
+          </p>
+          <p className="about-content text-lg text-black dark:text-white">
+            Our mission is to preserve and promote the rich cultural heritage of our community while inspiring future generations.
+          </p>
+        </div>
+      </section>
 
-{/* Gallery Section */}
-<section className="py-16 px-6 bg-black">
-  <div className="max-w-screen-xl mx-auto">
-    <h2 className="text-4xl font-extrabold text-center text-yellow-500 mb-12">
-      Explore Our Collections
-    </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-      {galleryItems.map((item, index) => (
-        <div key={index} className="gallery-item bg-white rounded-lg shadow-lg overflow-hidden dark:bg-black">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-xl font-semibold text-black dark:text-yellow-500">
-              {item.title}
-            </h3>
-            <p className="text-black dark:text-white mt-2">{item.description}</p>
+      {/* Gallery Section */}
+      <section className="py-16 px-6 bg-black">
+        <div className="max-w-screen-xl mx-auto">
+          <h2 className="text-4xl font-extrabold text-center text-yellow-500 mb-12">
+            Explore Our Collections
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            {galleryItems.map((item, index) => (
+              <div key={index} className="gallery-item bg-white rounded-lg shadow-lg overflow-hidden dark:bg-black">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-black dark:text-yellow-500">
+                    {item.title}
+                  </h3>
+                  <p className="text-black dark:text-white mt-2">{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-{/* Testimonials Section */}
-<section className="py-16 px-6 bg-white dark:bg-black">
-  <div className="max-w-screen-md mx-auto text-center">
-    <h2 className="text-4xl font-extrabold text-yellow-500 mb-6">
-      What Our Visitors Say
-    </h2>
-    <div className="space-y-8">
-      {[
-        {
-          quote: "An unforgettable experience! The art pieces are breathtaking.",
-          name: "Jane Doe",
-          role: "Art Enthusiast",
-        },
-        {
-          quote: "A beautiful blend of history and modern art.",
-          name: "John Smith",
-          role: "Cultural Explorer",
-        },
-        {
-          quote: "I could spend hours here! Highly recommend visiting.",
-          name: "Emily Johnson",
-          role: "Art Lover",
-        },
-      ].map((testimonial, index) => (
-        <blockquote
-          key={index}
-          className="testimonial border-l-4 border-yellow-500 pl-4 italic text-lg text-black dark:text-white"
-        >
-          “{testimonial.quote}”
-          <footer className="mt-2 font-bold">
-            {testimonial.name}, {testimonial.role}
-          </footer>
-        </blockquote>
-      ))}
-    </div>
-  </div>
-</section>
-
-{/* Events Section */}
-<section className="py-16 px-6 bg-black">
-  <div className="max-w-screen-xl mx-auto text-center">
-    <h2 className="text-4xl font-extrabold text-yellow-500 mb-12">
-      Upcoming Events
-    </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
-      {[
-        {
-          title: "Art Workshop",
-          date: "March 15, 2025",
-          description: "Join us for a hands-on workshop where you can create your own masterpiece.",
-        },
-        {
-          title: "Gallery Talk with Artists",
-          date: "April 10, 2025",
-          description: "Meet the artists behind our latest exhibition and learn about their creative process.",
-        },
-        {
-          title: "Children's Art Day",
-          date: "May 5, 2025",
-          description: "A fun-filled day for children to explore art through interactive activities.",
-        },
-      ].map((event, index) => (
-        <div
-          key={index}
-          className="event bg-white rounded-lg shadow-md p-6 dark:bg-black transition-transform transform hover:-translate-y-1 hover:shadow-lg"
-        >
-          <h3 className="text-xl font-bold text-black dark:text-yellow-500 mb-2">
-            {event.title}
-          </h3>
-          <p className="text-sm text-gray-500 mb-4">{event.date}</p>
-          <p className="text-black dark:text-white">{event.description}</p>
+      {/* Testimonials Section */}
+      <section className="py-16 px-6 bg-white dark:bg-black">
+        <div className="max-w-screen-md mx-auto text-center">
+          <h2 className="text-4xl font-extrabold text-yellow-500 mb-6">
+            What Our Visitors Say
+          </h2>
+          <div className="space-y-8">
+           <Testimonials/>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
+      {/* Events Section */}
+      <section className="py-16 px-6 bg-black">
+        <div className="max-w-screen-xl mx-auto text-center">
+          <h2 className="text-4xl font-extrabold text-yellow-500 mb-12">
+            Upcoming Events
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+            {[
+              {
+                title: "Art Workshop",
+                date: "March 15, 2025",
+                description: "Join us for a hands-on workshop where you can create your own masterpiece.",
+              },
+              {
+                title: "Gallery Talk with Artists",
+                date: "April 10, 2025",
+                description: "Meet the artists behind our latest exhibition and learn about their creative process.",
+              },
+              {
+                title: "Children's Art Day",
+                date: "May 5, 2025",
+                description: "A fun-filled day for children to explore art through interactive activities.",
+              },
+            ].map((event, index) => (
+              <div
+                key={index}
+                className="event bg-white rounded-lg shadow-md p-6 dark:bg-black transition-transform transform hover:-translate-y-1 hover:shadow-lg"
+              >
+                <h3 className="text-xl font-bold text-black dark:text-yellow-500 mb-2">
+                  {event.title}
+                </h3>
+                <p className="text-sm text-gray-500 mb-4">{event.date}</p>
+                <p className="text-black dark:text-white">{event.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
