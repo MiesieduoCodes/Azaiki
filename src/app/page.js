@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import OurTeam from "@/app/components/teams";
 import { motion } from "framer-motion";
 import HomeSlidingCarousel from "@/app/components/homeslider";
-import HeroSlider from "@/app/components/hero";
+import { SmoothScrollHero } from "@/app/components/hero";
 import Testify from "@/app/components/testimonials";
 
 const Page = () => {
@@ -27,62 +27,40 @@ const Page = () => {
   return (
     <div className="space-y-20 bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
       {/* Hero Section */}
-      <HeroSlider />
+      <SmoothScrollHero/>
 
-      {/* Art & Culture News Section */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-12 px-8">
-        {[
-          {
-            image: "https://plus.unsplash.com/premium_photo-1715457841520-6079d7d9459a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            title: "Explore Digital Art",
-            description:
-              "Immerse yourself in the world of digital art, featuring captivating visuals from talented creators.",
-          },
-          {
-            image: "https://images.pexels.com/photos/2130137/pexels-photo-2130137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "Upcoming Art Exhibitions",
-            description:
-              "Discover upcoming exhibitions and events showcasing the best in contemporary art.",
-          },
-          {
-            image: "https://images.pexels.com/photos/3205574/pexels-photo-3205574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            title: "Join Artistic Communities",
-            description:
-              "Connect with fellow artists and art enthusiasts to collaborate, share ideas, and create together.",
-          },
-        ].map((section, index) => (
-          <motion.div
-            key={index}
-            className="relative group overflow-hidden rounded-2xl shadow-xl bg-cover bg-center h-96 transform transition duration-500 hover:scale-105 hover:shadow-2xl"
-            style={{ backgroundImage: `url(${section.image})` }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: index * 0.3 }}
-          >
-            <div className="absolute inset-0 bg-black/70 dark:bg-black/50 group-hover:bg-opacity-50 transition duration-500 flex flex-col justify-end p-8">
-              <h2 className="text-3xl font-bold text-yellow-400">
-                {section.title}
-              </h2>
-              <p className="text-white text-lg mt-2">{section.description}</p>
-            </div>
-          </motion.div>
-        ))}
-      </section>
 
       {/* Quote Section */}
-      <section className="px-8 text-center">
-        <motion.div
-          className="p-10 rounded-xl shadow-lg bg-yellow-400 text-black dark:bg-black dark:text-yellow-400 transition-colors duration-300"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <p className="text-5xl font-extrabold">
-            &quot;Believe you can and you&apos;re halfway there.&quot;
-          </p>
-          <p className="text-xl font-semibold mt-2">- Theodore Roosevelt</p>
-        </motion.div>
-      </section>
+      <section className="px-4 sm:px-6 lg:px-8 py-12 text-center">
+  <motion.div
+    className="p-6 md:p-10 rounded-2xl shadow-2xl 
+              bg-yellow-400/90 dark:bg-gray-900 
+              text-black dark:text-yellow-300 
+              border-4 border-transparent dark:border-yellow-400/20
+              transition-all duration-500 
+              hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-black/30
+              backdrop-blur-sm"
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    whileHover={{ scale: 1.02 }}
+    transition={{ 
+      duration: 0.8,
+      scale: { type: 'spring', stiffness: 300 }
+    }}
+  >
+    <blockquote>
+      <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight 
+                   [text-shadow:_0_2px_4px_rgba(0,0,0,0.1)] 
+                   dark:[text-shadow:_0_2px_4px_rgba(255,255,255,0.1)]">
+        &quot;Believe you can and you&apos;re halfway there.&quot;
+      </p>
+      <footer className="mt-4 md:mt-6 text-lg md:text-xl font-semibold 
+                        text-black/80 dark:text-yellow-300/90">
+        - Theodore Roosevelt
+      </footer>
+    </blockquote>
+  </motion.div>
+</section>
 
       {/* Our Team */}
       <OurTeam />

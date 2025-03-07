@@ -1,86 +1,76 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+// components/Portfolio.js
+import { useEffect, useState } from 'react';
 
-const TeamSection = () => {
-  const sectionRef = useRef(null);
-  const cardRefs = useRef([]);
-
-  useEffect(() => {
-    const cards = cardRefs.current;
-
-    gsap.fromTo(
-      cards,
-      { x: -200, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
-      }
-    );
-  }, []);
-
-  const teamMembers = [
+const portfolioData = [
+  {
+    "title": "Contemporary Art",
+    "description": "Exploring innovative techniques and bold concepts, this exhibit showcases the work of modern artists pushing the boundaries of creativity.",
+    "image": "https://example.com/path/to/contemporary-art.jpg"
+},
+{
+    "title": "Classic Masterpieces",
+    "description": "A curated collection of timeless works by renowned artists, offering a glimpse into the rich history of art and its evolution through the ages.",
+    "image": "https://example.com/path/to/classic-masterpieces.jpg"
+},
+{
+    "title": "Sculptural Wonders",
+    "description": "This exhibit features stunning sculptures that play with form and space, inviting viewers to experience art in three dimensions.",
+    "image": "https://example.com/path/to/sculptural-wonders.jpg"
+},
     {
-      name: "Professor Steve Azaiki",
-      image: "/images/IMG-20250207-WA0040.jpg",
-      about: "Professor Steve Azaiki (OON), is an astute administrator and his achievements cut across several fields including Academics, Environmentalism, Consultancy and Public Service."
+        "image": "https://pagedone.io/asset/uploads/1707713007.png"
     },
     {
-      name: "Bob Smith",
-      image: "/images/bob.jpg",
-      about: "Specializes in contemporary art and manages exhibitions worldwide."
+        "image": "https://pagedone.io/asset/uploads/1707713018.png"
     },
     {
-      name: "Clara Davis",
-      image: "/images/clara.jpg",
-      about: "Expert in African arts, curator of numerous collections."
+        "image": "https://pagedone.io/asset/uploads/1707713032.png"
     },
     {
-      name: "David Lee",
-      image: "/images/david.jpg",
-      about: "Sculptor and historian passionate about preserving cultural heritage."
+        "image": "https://pagedone.io/asset/uploads/1707713055.png"
     }
-  ];
+];
 
-  return (
-    <section ref={sectionRef} className="py-12 bg-gray-100 dark:bg-black font-sans">
-      <div className="container mx-auto px-4 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-yellow-300">
-          Meet Our Team
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {teamMembers.map((member, index) => (
-            <div
-              key={index}
-              ref={(el) => (cardRefs.current[index] = el)}
-              className="relative group overflow-hidden rounded-lg shadow-lg bg-white dark:bg-black transition-transform duration-300 hover:scale-105"
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-full h-44 object-cover"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white">
-                <p className="text-lg font-semibold">{member.name}</p>
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-yellow-400">{member.name}</h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">{member.about}</p>
-              </div>
+const Portfolio = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(portfolioData);
+    }, []);
+
+    return (
+        <section className="p-16 relative">
+            <div className="w-full max-w-7xl px-6 lg:px-8 mx-auto">
+            <div className="flex items-center justify-center flex-col gap-5 mb-14">
+    <span className="bg-yellow-100 text-yellow-600 text-xs font-medium px-3.5 py-1 rounded-full">
+        Art Gallery
+    </span>
+    <h2 className="font-bold text-4xl text-gray-900 dark:text-white text-center">
+        Celebrating Artistic Expression
+    </h2>
+    <p className="text-lg font-normal text-gray-500 dark:text-gray-300 max-w-3xl mx-auto text-center">
+        In the realm of art, creativity knows no bounds. Our gallery serves as a vibrant space where diverse artistic expressions come together, inviting visitors to explore, appreciate, and connect with the beauty of human imagination.
+    </p>
+</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-14">
+                    {items.map((item, index) => (
+                        <div key={index} className="relative bg-cover rounded-lg flex justify-center flex-col px-7 py-6" 
+                             style={item.image ? { backgroundImage: `url(${item.image})` } : {}}>
+                            {item.title && (
+                                <h6 className="font-medium text-xl leading-8 text-white mb-4">{item.title}</h6>
+                            )}
+                            {item.description && (
+                                <p className="text-base font-normal text-white/70">{item.description}</p>
+                            )}
+                            {!item.title && item.image && (
+                                <img src={item.image} alt={`Portfolio image ${index + 1}`} className="w-full rounded-lg object-cover" />
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
-export default TeamSection;
+export default Portfolio;

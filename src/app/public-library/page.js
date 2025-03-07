@@ -30,7 +30,7 @@ const HeroSection = () => {
             With a vast collection of books, digital resources, and community programs, 
             it fosters a love for reading and lifelong learning for all ages.
           </motion.p>
-          <a href="#" className="font-semibold dark:text-yellow-500">
+          <a href="https://www.azaikipubliclibrary.org.ng/" className="font-semibold dark:text-yellow-500">
             <button className="btn ">
               <h2 className="dark:text-yellow-500">
               Fast Travel to Azaiki Library</h2>
