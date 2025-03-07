@@ -165,7 +165,7 @@ const AdminDashboard = () => {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
+        draggable={true}
         pauseOnHover
         theme="colored"
       />

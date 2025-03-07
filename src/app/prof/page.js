@@ -11,7 +11,7 @@ const Page = () => {
       name: 'Professor Steve Azaiki',
       title: 'Scholar, Author, and Statesman',
       profileImage: '/images/Prof-Steve-Portrait.jpg',
-      coverImage: '/images/Prof-Steve-Portrait.jpg',
+      coverImage: '//images/IMG-20250207-WA0040.jpg',
       socialLinks: {
         email: 'mailto:professor.steve@university.com',
         linkedin: 'https://www.linkedin.com/in/steveazaiki/',

@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ref, onValue } from "firebase/database";
+import { database } from "@/app/firebase"; // Update the path accordingly
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
-import testimonialsData from "@/app/components/constants/testimonials.json";
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
 
   useEffect(() => {
-    setTestimonials(testimonialsData.testimonials);
+    const testimonialsRef = ref(database, 'testimonials');
+    
+    const unsubscribe = onValue(testimonialsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const testimonialsArray = Array.isArray(data) ? data : Object.values(data);
+        setTestimonials(testimonialsArray);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   return (

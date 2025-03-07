@@ -1,12 +1,31 @@
 "use client";
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import gsap from 'gsap';
+import { ref, onValue } from 'firebase/database';
+import { database } from '@/app/firebase';
 import Testimonials from '@/app/components/testimonials';
-import generalarts from '@/app/components/constants/generalarts.json';
-
-const artSections = generalarts;
 
 export default function GeneralArts() {
+  const [artSections, setArtSections] = useState([]);
+
+  // Fetch art sections from Firebase Realtime Database
+  useEffect(() => {
+    const artRef = ref(database, 'generalarts');
+    onValue(artRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        // Convert object to array if necessary
+        const sectionsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key]
+        }));
+        setArtSections(sectionsArray);
+      } else {
+        setArtSections([]);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // GSAP Animations
@@ -109,13 +128,18 @@ export default function GeneralArts() {
       {/* Map through artSections data */}
       {artSections.map((section) => (
         <section key={section.id} className={`py-16 px-6 text-center ${section.background}`}>
-          <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">{section.title}</h2>
+          <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">
+            {section.title}
+          </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
             {section.description}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {section.items.map((item, index) => (
-              <div key={index} className="art-item bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300">
+            {section.items?.map((item, index) => (
+              <div
+                key={index}
+                className="art-item bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300"
+              >
                 <img src={item.image} alt={item.title} className="w-full h-56 object-cover" />
                 <div className="p-4">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
@@ -135,7 +159,11 @@ export default function GeneralArts() {
         </p>
         <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
           <div className="artist-spotlight-item bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden w-full md:w-[30%]">
-            <img src="https://via.placeholder.com/400x300?text=Artist+Image" alt="Artist Name" className="w-full h-auto object-cover" />
+            <img
+              src="https://via.placeholder.com/400x300?text=Artist+Image"
+              alt="Artist Name"
+              className="w-full h-auto object-cover"
+            />
             <div className="p-4">
               <h3 className="text-xl font-semibold">Artist Name</h3>
               <p className="text-gray-600 dark:text-gray-300">
@@ -146,50 +174,15 @@ export default function GeneralArts() {
         </div>
       </section>
 
-      {/* Featured Artwork Section */}
-      <section className="py-16 px-6 bg-gray-100 dark:bg-gray-900 text-center">
-        <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">Featured Artwork</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          Explore some of the most iconic artworks in our collection. Each piece tells a story and reflects the creativity of its creator.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
-          {[{
-            title: "Masterpiece One",
-            image: "https://via.placeholder.com/400x300?text=Artwork+One",
-            description: "Description of Masterpiece One, highlighting its significance and artistic elements. This piece is a stunning example of abstract expressionism.",
-          },
-          {
-            title: "Masterpiece Two",
-            image: "https://via.placeholder.com/400x300?text=Artwork+Two",
-            description: "Description of Masterpiece Two, highlighting its significance and artistic elements. This piece captures the essence of cultural heritage.",
-          },
-          {
-            title: "Masterpiece Three",
-            image: "https://via.placeholder.com/400x300?text=Artwork+Three",
-            description: "Description of Masterpiece Three, highlighting its significance and artistic elements. This piece is a modern take on classical themes.",
-          }].map((artwork, index) => (
-            <div key={index} className="featured-artwork-item bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:-translate-y-1">
-              <img src={artwork.image} alt={artwork.title} className="w-full h-auto object-cover" />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{artwork.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{artwork.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Reviews Section */}
       <section className="py-16 px-6 bg-gray-200 dark:bg-gray-800 text-center">
         <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">What People Are Saying</h2>
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
           Hear from our visitors and art enthusiasts about their experiences with our collection and exhibitions.
         </p>
-
         <div className="space-y-8">
-          <Testimonials/>
+          <Testimonials />
         </div>
-
       </section>
 
       {/* Call to Action Section */}

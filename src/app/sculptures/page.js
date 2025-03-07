@@ -2,15 +2,24 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import sculpturesData from "@/app/components/constants/sculptures.json"; // Adjust the path as needed
+
+// Import your Firebase configuration (adjust the path as needed)
+import { database } from "@/app/firebase";
+import { ref, onValue } from "firebase/database";
 
 const SculpturesPage = () => {
+  // Quiz state
   const [quizAnswer, setQuizAnswer] = useState("");
   const [quizFeedback, setQuizFeedback] = useState("");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true); // Quiz loading state
+
+  // Firebase data state
+  const [sculptures, setSculptures] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   // Fallback local quiz questions
   const localQuestions = [
@@ -35,7 +44,7 @@ const SculpturesPage = () => {
       console.error("Failed to fetch questions. Using local questions.", error);
       setQuestions(localQuestions);
     } finally {
-      setLoading(false); // Set loading to false after fetch attempt
+      setLoading(false);
     }
   };
 
@@ -48,6 +57,39 @@ const SculpturesPage = () => {
       setCurrentQuestion(questions[questionIndex]);
     }
   }, [questions, questionIndex]);
+
+  // Fetch sculptures and artists from Firebase Realtime Database
+  useEffect(() => {
+    const sculpturesRef = ref(database, "sculptures");
+    const artistsRef = ref(database, "artists");
+
+    onValue(sculpturesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const sculpturesArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key]
+        }));
+        setSculptures(sculpturesArray);
+      } else {
+        setSculptures([]);
+      }
+    });
+
+    onValue(artistsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const artistsArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key]
+        }));
+        setArtists(artistsArray);
+      } else {
+        setArtists([]);
+      }
+      setDataLoading(false);
+    });
+  }, []);
 
   const handleQuizSubmit = (e) => {
     e.preventDefault();
@@ -65,12 +107,18 @@ const SculpturesPage = () => {
     }
   };
 
-  // Extract sculptures and artists from the imported JSON
-  const { sculptures, artists } = sculpturesData;
-
-  // Helper to get an artist by ID
+  // Helper to get an artist by ID from Firebase data
   const getArtistById = (id) =>
     artists.find((artist) => artist.id === id);
+
+  // Display loading while Firebase data is being fetched
+  if (dataLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading data...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
