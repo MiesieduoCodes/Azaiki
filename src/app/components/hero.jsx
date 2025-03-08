@@ -215,4 +215,4 @@ const Schedule = () => {
       ))}
     </motion.section>
   );
-};A
+};
