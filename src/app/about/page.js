@@ -1,214 +1,258 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import Testimonials from "@/app/components/testimonials"; 
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+import Testimonials from "@/app/components/testimonials";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AzaikiArtGallery = () => {
+  const heroVideoRef = useRef(null);
+  const sectionRefs = useRef([]);
+
   useEffect(() => {
-    gsap.fromTo(
-      '.hero-text',
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.2 }
-    );
+    // Hero section parallax effect
+    gsap.to(heroVideoRef.current, {
+      scrollTrigger: {
+        trigger: heroVideoRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      },
+      scale: 1.2,
+      yPercent: 20
+    });
 
-    gsap.fromTo(
-      '.about-content',
-      { opacity: 0, x: -100 },
-      { opacity: 1, x: 0, duration: 1.2, ease: 'power3.out', delay: 0.5 }
-    );
+    // Section animations
+    gsap.utils.toArray('.animate-section').forEach((section, index) => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+    });
 
-    gsap.fromTo(
-      '.gallery-image',
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 1, ease: 'power3.out', stagger: 0.3, delay: 0.8 }
-    );
-
-    gsap.fromTo(
-      '.testimonial',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2 }
-    );
-
-    gsap.fromTo(
-      '.event',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2 }
-    );
-
-    gsap.fromTo(
-      '.video-card',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', stagger: 0.2, delay: 0.5 }
-    );
+    // Gallery animations
+    gsap.from('.gallery-item', {
+      opacity: 0,
+      y: 30,
+      stagger: 0.2,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.gallery-section',
+        start: 'top 70%'
+      }
+    });
   }, []);
 
   const galleryItems = [
     {
       image: 'https://momaa.org/wp-content/uploads/2023/04/benin.jpeg',
       title: 'Timeless Sculpture',
-      description: 'A beautifully crafted sculpture representing the essence of cultural heritage.'
+      description: 'A beautifully crafted sculpture representing cultural heritage'
     },
     {
       image: 'https://www.tingatingaart.com/cdn/shop/articles/OIG_bf9cae34-bfde-41ff-a9b5-4f395dd9c1e9_2048x.jpg?v=1701274052',
       title: 'Abstract Painting',
-      description: 'An abstract masterpiece that evokes emotion and inspires creativity.'
+      description: 'Evocative abstract masterpiece inspiring creativity'
     },
     {
       image: 'https://www.historicalafrica.org/wp-content/uploads/2022/06/African.jpg',
       title: 'Historic Artifact',
-      description: 'A rare artifact that tells the story of our rich and diverse history.'
+      description: 'Rare artifact telling our diverse history'
     },
     {
       image: 'https://momaa.org/wp-content/uploads/2019/09/Syzygy-2015-by-Lina-Iris-Viktor.jpg',
-      title: 'Modern Art Installation',
-      description: 'A contemporary installation that blends innovation with tradition.'
+      title: 'Modern Installation',
+      description: 'Contemporary blend of innovation and tradition'
     }
   ];
 
   const videoItems = [
-    { videoUrl: "https://videos.pexels.com/video-files/4067804/4067804-uhd_2732_1440_25fps.mp4", title: "Artist Spotlight" },
-    { videoUrl: "https://videos.pexels.com/video-files/5764706/5764706-uhd_2560_1440_30fps.mp4", title: "Gallery Tour" },
+    { 
+      videoUrl: "https://videos.pexels.com/video-files/4067804/4067804-uhd_2732_1440_25fps.mp4", 
+      title: "Artist Spotlight" 
+    },
+    { 
+      videoUrl: "https://videos.pexels.com/video-files/5764706/5764706-uhd_2560_1440_30fps.mp4", 
+      title: "Gallery Tour" 
+    },
   ];
 
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white min-h-screen">
+    <div className="bg-white dark:bg-black text-white">
       {/* Hero Section */}
-      <section className="relative text-white py-20 pt-44 px-6 text-center">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src="https://videos.pexels.com/video-files/5764706/5764706-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
-        <div className="relative z-20 max-w-screen-xl mx-auto">
-          <h1 className="hero-text text-5xl font-extrabold leading-tight mb-4">
-            Welcome to the Azaiki Art Gallery and Museum
-          </h1>
-          <p className="hero-text text-lg mb-6">
-            A celebration of culture, history, and artistic brilliance. Explore
-            our curated collections that connect the past with the present.
-          </p>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0" ref={heroVideoRef}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="https://video.flos5-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQOc55bueLXv2tnvImmRPNToeyGrIzv61GIV1efiPTIBtac9iCm32WroV6N3UHuaDtvb9w1esufMXgRfMX3BYagY.mp4?strext=1&amp;_nc_cat=103&amp;_nc_oc=Adh1qe1V2Xiaq-kcjwPwA3Q8O9ZCkbgRvGfmNFOmpCvnEACp3pULQ7OvasBLBKclKgs&amp;_nc_sid=8bf8fe&amp;_nc_ht=video.flos5-1.fna.fbcdn.net&amp;_nc_ohc=4sZHAj0f65AQ7kNvgHpyaTb&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5GQUNFQk9PSy4uQzMuNjQwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6Mzc3MzI0Njg1OTU5ODQwOSwidmlfdXNlY2FzZV9pZCI6MTAxMjIsImR1cmF0aW9uX3MiOjk0LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&amp;ccb=17-1&amp;_nc_zt=28&amp;oh=00_AYGccKDx5wanJNObZithVkD7Hw8H9k4TAnh1K7-H4J_ROQ&amp;oe=67D13C0F" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/50 dark:bg-black/70 transition-colors duration-500" />
         </div>
+
+        <motion.div 
+          className="relative z-10 text-center px-4 max-w-6xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+        >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Welcome to Azaiki Art Gallery
+          </h1>
+          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
+            Where cultural heritage meets contemporary artistic expression
+          </p>
+        </motion.div>
       </section>
 
       {/* Video Section */}
-      <section className="py-16 px-6 bg-black">
-        <div className="max-w-screen-xl mx-auto text-center">
-          <h2 className="text-4xl font-extrabold text-yellow-500 mb-6">
-            Watch and Learn
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black animate-section">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-yellow-500 mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+          >
+            Featured Videos
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {videoItems.map((item, index) => (
-              <div key={index} className="video-card rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <motion.div 
+                key={index}
+                className="group relative overflow-hidden rounded-2xl shadow-xl aspect-video"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-64 object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
                 </video>
-                <h3 className="text-xl font-bold text-yellow-500 mt-4">
-                  {item.title}
-                </h3>
-              </div>
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity group-hover:bg-black/60">
+                  <h3 className="text-2xl font-bold text-yellow-500">{item.title}</h3>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 px-6 bg-white dark:bg-black">
-        <div className="max-w-screen-md mx-auto text-center">
-          <h2 className="about-content text-4xl font-extrabold text-yellow-500 mb-6">
-            About Us
-          </h2>
-          <p className="about-content text-lg text-black dark:text-white mb-4">
-            The Azaiki Art Gallery and Museum is a sanctuary for art enthusiasts and cultural explorers. Located in the heart of artistic expression, our gallery showcases a diverse array of artwork, from traditional masterpieces to contemporary creations.
-          </p>
-          <p className="about-content text-lg text-black dark:text-white">
-            Our mission is to preserve and promote the rich cultural heritage of our community while inspiring future generations.
-          </p>
-        </div>
-      </section>
-
       {/* Gallery Section */}
-      <section className="py-16 px-6 bg-black">
-        <div className="max-w-screen-xl mx-auto">
-          <h2 className="text-4xl font-extrabold text-center text-yellow-500 mb-12">
-            Explore Our Collections
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black gallery-section animate-section">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-yellow-500 mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Featured Collections
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {galleryItems.map((item, index) => (
-              <div key={index} className="gallery-item bg-white rounded-lg shadow-lg overflow-hidden dark:bg-black">
+              <motion.div 
+                key={index}
+                className="gallery-item group relative overflow-hidden rounded-xl shadow-lg dark:shadow-gray-800/20"
+                whileHover={{ y: -10 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-black dark:text-yellow-500">
-                    {item.title}
-                  </h3>
-                  <p className="text-black dark:text-white mt-2">{item.description}</p>
+                <div className="absolute inset-0 bg-black/60 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                  <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                  <p className="text-gray-200 mt-2 text-sm">{item.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-6 bg-white dark:bg-black">
-        <div className="max-w-screen-md mx-auto text-center">
-          <h2 className="text-4xl font-extrabold text-yellow-500 mb-6">
-            What Our Visitors Say
-          </h2>
-          <div className="space-y-8">
-           <Testimonials/>
-          </div>
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900 animate-section">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-yellow-500 mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Visitor Experiences
+          </motion.h2>
+          <Testimonials />
         </div>
       </section>
 
       {/* Events Section */}
-      <section className="py-16 px-6 bg-black">
-        <div className="max-w-screen-xl mx-auto text-center">
-          <h2 className="text-4xl font-extrabold text-yellow-500 mb-12">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black animate-section">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center text-yellow-500 mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
             Upcoming Events
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 title: "Art Workshop",
                 date: "March 15, 2025",
-                description: "Join us for a hands-on workshop where you can create your own masterpiece.",
+                description: "Create your own masterpiece in our hands-on workshop"
               },
               {
-                title: "Gallery Talk with Artists",
+                title: "Artist Talks",
                 date: "April 10, 2025",
-                description: "Meet the artists behind our latest exhibition and learn about their creative process.",
+                description: "Meet creators behind our latest exhibition"
               },
               {
                 title: "Children's Art Day",
                 date: "May 5, 2025",
-                description: "A fun-filled day for children to explore art through interactive activities.",
+                description: "Interactive art activities for young creators"
               },
             ].map((event, index) => (
-              <div
+              <motion.div 
                 key={index}
-                className="event bg-white rounded-lg shadow-md p-6 dark:bg-black transition-transform transform hover:-translate-y-1 hover:shadow-lg"
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
               >
-                <h3 className="text-xl font-bold text-black dark:text-yellow-500 mb-2">
+                <h3 className="text-xl font-bold text-black dark:text-yellow-400 mb-2">
                   {event.title}
                 </h3>
-                <p className="text-sm text-gray-500 mb-4">{event.date}</p>
-                <p className="text-black dark:text-white">{event.description}</p>
-              </div>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{event.date}</p>
+                <p className="text-gray-700 dark:text-gray-200">{event.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>

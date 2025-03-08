@@ -1,216 +1,235 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ref, onValue } from 'firebase/database';
 import { database } from '@/app/firebase';
 import Testimonials from '@/app/components/testimonials';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function GeneralArts() {
   const [artSections, setArtSections] = useState([]);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-20%" });
 
-  // Fetch art sections from Firebase Realtime Database
+  // Firebase data fetch
   useEffect(() => {
     const artRef = ref(database, 'generalarts');
     onValue(artRef, (snapshot) => {
       const data = snapshot.val();
-      if (data) {
-        // Convert object to array if necessary
-        const sectionsArray = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key]
-        }));
-        setArtSections(sectionsArray);
-      } else {
-        setArtSections([]);
-      }
+      const sectionsArray = data ? Object.keys(data).map(key => ({
+        id: key,
+        ...data[key]
+      })) : [];
+      setArtSections(sectionsArray);
     });
   }, []);
 
+  // Animation setup
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // GSAP Animations
-      gsap.from('.section-title', {
+    gsap.utils.toArray('.animate-block').forEach((block, i) => {
+      gsap.from(block, {
         opacity: 0,
-        y: -30,
-        stagger: 0.2,
-        duration: 1.5,
-        ease: 'power3.out',
-      });
-
-      gsap.from('.art-item', {
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
+        y: 50,
         duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '.art-item',
+          trigger: block,
           start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
+          toggleActions: 'play none none reverse'
+        }
       });
-
-      gsap.from('.artist-spotlight-item', {
-        opacity: 0,
-        y: 50,
-        stagger: 0.4,
-        duration: 2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.artist-spotlight-item',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from('.featured-artwork-item', {
-        opacity: 0,
-        y: 30,
-        stagger: 0.2,
-        duration: 3,
-        ease: 'power3.in',
-        scrollTrigger: {
-          trigger: '.featured-artwork-item',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from('.review-item', {
-        opacity: 0,
-        y: 20,
-        stagger: 0.2,
-        duration: 1.5,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.review-item',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from('.cta-button', {
-        opacity: 0,
-        y: 20,
-        duration: 1.5,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.cta-button',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
-      gsap.from('.newsletter-form', {
-        opacity: 0,
-        y: 20,
-        duration: 1.5,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.newsletter-form',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-    }
+    });
   }, []);
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 pt-28 text-lg text-black dark:text-gray-300 transition-colors duration-300">
-      {/* Header */}
-      <header className="py-12 text-center">
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white">General Arts</h1>
-        <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
-          Exploring the rich diversity of global art forms. Discover the stories behind the masterpieces and the artists who create them.
-        </p>
-      </header>
+    <div className="bg-gray-50 dark:bg-gray-900 pt-28 text-black dark:text-gray-300">
+      {/* Hero Header */}
+      <motion.header 
+        className="py-16 px-4 sm:px-6 lg:px-8 text-center"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+          General Arts
+        </h1>
+        <motion.p
+          className="mt-6 text-lg sm:text-xl max-w-3xl mx-auto text-gray-600 dark:text-gray-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          Exploring the rich diversity of global art forms through contemporary and historical perspectives.
+        </motion.p>
+      </motion.header>
 
-      {/* Map through artSections data */}
+      {/* Art Sections */}
       {artSections.map((section) => (
-        <section key={section.id} className={`py-16 px-6 text-center ${section.background}`}>
-          <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">
-            {section.title}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-            {section.description}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {section.items?.map((item, index) => (
-              <div
-                key={index}
-                className="art-item bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300"
-              >
-                <img src={item.image} alt={item.title} className="w-full h-56 object-cover" />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{item.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <section 
+          key={section.id}
+          className="py-16 px-4 sm:px-6 lg:px-8"
+          ref={sectionRef}
+        >
+          <motion.div
+            className="max-w-7xl mx-auto"
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            <motion.h2
+              className="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-900 dark:text-white"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+            >
+              {section.title}
+            </motion.h2>
+            
+            <motion.p
+              className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12 text-center"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 }
+              }}
+            >
+              {section.description}
+            </motion.p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {section.items?.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="animate-block group relative overflow-hidden rounded-xl shadow-lg dark:shadow-gray-800/20 bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow"
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </section>
       ))}
 
-      {/* Artist Spotlight Section */}
-      <section className="py-16 px-6 bg-white dark:bg-gray-800 text-center">
-        <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">Artist Spotlight</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          Meet the talented artists behind the masterpieces. Learn about their journey, inspiration, and contributions to the art world.
-        </p>
-        <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
-          <div className="artist-spotlight-item bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md overflow-hidden w-full md:w-[30%]">
-            <img
-              src="https://via.placeholder.com/400x300?text=Artist+Image"
-              alt="Artist Name"
-              className="w-full h-auto object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold">Artist Name</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                A brief description of the artist, their style, and contributions to the art world. This artist is known for their unique approach to blending traditional and modern techniques.
-              </p>
-            </div>
+      {/* Artist Spotlight */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2 
+            className="text-3xl sm:text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+          >
+            Featured Artists
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((_, index) => (
+              <motion.div
+                key={index}
+                className="animate-block group relative bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src="https://source.unsplash.com/random/800x600?artist"
+                    alt="Artist"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">Featured Artist</h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Contemporary artist specializing in mixed media installations that explore cultural identity.
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Reviews Section */}
-      <section className="py-16 px-6 bg-gray-200 dark:bg-gray-800 text-center">
-        <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">What People Are Saying</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          Hear from our visitors and art enthusiasts about their experiences with our collection and exhibitions.
-        </p>
-        <div className="space-y-8">
+      {/* Testimonials */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            className="text-3xl sm:text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+          >
+            Visitor Experiences
+          </motion.h2>
           <Testimonials />
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="py-16 px-6 bg-white dark:bg-gray-900 text-center">
-        <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">Join the Art Movement</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          Be part of our vibrant community. Attend workshops, exhibitions, and events to immerse yourself in the world of art.
-        </p>
-        <button className="cta-button bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors duration-300">
-          Explore Events
-        </button>
+      {/* CTA Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-yellow-500 to-orange-500">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            className="text-3xl sm:text-4xl font-bold mb-6 text-white"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            Join Our Creative Community
+          </motion.h2>
+          <motion.button
+            className="cta-button bg-white text-yellow-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Explore Events & Workshops
+          </motion.button>
+        </div>
       </section>
 
-      {/* Newsletter Subscription Section */}
-      <section className="py-16 px-6 bg-gray-100 dark:bg-gray-800 text-center">
-        <h2 className="section-title text-4xl font-semibold mb-6 text-gray-900 dark:text-white">Stay Updated</h2>
-        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          Subscribe to our newsletter for the latest updates on exhibitions, events, and new additions to our collection.
-        </p>
-        <div className="newsletter-form flex justify-center">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-64 px-4 py-2 rounded-l-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          />
-          <button className="bg-yellow-500 text-white px-6 py-2 rounded-r-lg hover:bg-yellow-600 transition-colors duration-300">
-            Subscribe
-          </button>
+      {/* Newsletter */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="space-y-8"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+              Stay Updated
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300">
+              Receive exclusive updates about new exhibitions and special events
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="w-full sm:w-96 px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-yellow-500 dark:bg-gray-700"
+              />
+              <button className="bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition-colors">
+                Subscribe
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

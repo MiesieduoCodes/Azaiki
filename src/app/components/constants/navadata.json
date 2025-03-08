@@ -13,14 +13,12 @@
     "navMain": [
       {
         "title": "About",
-        "url": "/about",
-        "icon": "Info"
+        "url": "/about"
       },
       {
         "title": "Art Gallery",
         "url": "#",
-        "icon": "Palette",
-        "isActive": true,
+                "isActive": true,
         "items": [
           { "title": "Digital Art", "url": "/digital" },
           { "title": "General", "url": "/all" },
@@ -33,7 +31,7 @@
       {
         "title": "Museum",
         "url": "#",
-        "icon": "Landmark",
+        
         "items": [
           { "title": "Museum Of African Arts", "url": "/african-museum" },
           { "title": "Museum Of Niger Delta", "url": "/niger-museum" },
@@ -43,8 +41,7 @@
       {
         "title": "Artists",
         "url": "#",
-        "icon": "Brush",
-        "items": [
+              "items": [
           {
             "title": "Millicent Osumuo",
             "url": "/artists?id=3",
@@ -59,7 +56,6 @@
       {
         "title": "More",
         "url": "#",
-        "icon": "MoreHorizontal",
         "items": [
           { "title": "About The Professor", "url": "/prof" },
           { "title": "Azaiki Foundation", "url": "/foundation" },

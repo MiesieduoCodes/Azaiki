@@ -38,13 +38,18 @@ const Navbar = () => {
           <a href="/contact" className="hover:text-yellow-200 transition-colors">Contact</a>
           <a href="/support" className="hover:text-yellow-200 transition-colors">Support</a>
         </div>
+
+        <div className="flex space-x-4 text-xs md:text-sm">
+          <a href="/contact" className="hover:text-yellow-200 transition-colors">+2349060462206</a>
+          <a href="/support" className="hover:text-yellow-200 transition-colors">miesieduoveria@gmail.com</a>
+        </div>
       </div>
 
       {/* Main Navbar */}
       <nav className="bg-white pt-3 dark:bg-black text-black dark:text-white shadow-md fixed w-full z-40 top-8">
         <div className="container mx-auto px-4 lg:px-8 flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="text-3xl font-bold hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
+          <div className="text-3xl headingg font-bold hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
             <TransitionLink href={menuData.teams[0].url} label={menuData.teams[0].name} />
           </div>
 

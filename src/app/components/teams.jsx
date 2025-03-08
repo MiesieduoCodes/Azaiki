@@ -5,29 +5,29 @@ const portfolioData = [
   {
     "title": "Contemporary Art",
     "description": "Exploring innovative techniques and bold concepts, this exhibit showcases the work of modern artists pushing the boundaries of creativity.",
-    "image": "https://example.com/path/to/contemporary-art.jpg"
+    "image": "/images/IMG-20250207-WA0021.jpg"
 },
 {
     "title": "Classic Masterpieces",
     "description": "A curated collection of timeless works by renowned artists, offering a glimpse into the rich history of art and its evolution through the ages.",
-    "image": "https://example.com/path/to/classic-masterpieces.jpg"
+    "image": "/images/IMG-20250101-WA0024.jpg"
 },
 {
     "title": "Sculptural Wonders",
     "description": "This exhibit features stunning sculptures that play with form and space, inviting viewers to experience art in three dimensions.",
-    "image": "https://example.com/path/to/sculptural-wonders.jpg"
+    "image": "/images/IMG-20250207-WA0020.jpg"
 },
     {
-        "image": "https://pagedone.io/asset/uploads/1707713007.png"
+        "image": "/images/IMG-20250207-WA0024.jpg"
     },
     {
-        "image": "https://pagedone.io/asset/uploads/1707713018.png"
+        "image": "/images/IMG-20250207-WA0019.jpg"
     },
     {
-        "image": "https://pagedone.io/asset/uploads/1707713032.png"
+        "image": "/images/"
     },
     {
-        "image": "https://pagedone.io/asset/uploads/1707713055.png"
+        "image": "/images/"
     }
 ];
 
@@ -43,7 +43,7 @@ const Portfolio = () => {
             <div className="w-full max-w-7xl px-6 lg:px-8 mx-auto">
             <div className="flex items-center justify-center flex-col gap-5 mb-14">
     <span className="bg-yellow-100 text-yellow-600 text-xs font-medium px-3.5 py-1 rounded-full">
-        Art Gallery
+      Our Art Gallery
     </span>
     <h2 className="font-bold text-4xl text-gray-900 dark:text-white text-center">
         Celebrating Artistic Expression
@@ -56,11 +56,14 @@ const Portfolio = () => {
                     {items.map((item, index) => (
                         <div key={index} className="relative bg-cover rounded-lg flex justify-center flex-col px-7 py-6" 
                              style={item.image ? { backgroundImage: `url(${item.image})` } : {}}>
+                            <div>
+                              
+                            </div>
                             {item.title && (
-                                <h6 className="font-medium text-xl leading-8 text-white mb-4">{item.title}</h6>
+                                <h6 className="font-medium text-xl leading-8 text-black mb-4">{item.title}</h6>
                             )}
                             {item.description && (
-                                <p className="text-base font-normal text-white/70">{item.description}</p>
+                                <p className="text-base font-normal text-black/70">{item.description}</p>
                             )}
                             {!item.title && item.image && (
                                 <img src={item.image} alt={`Portfolio image ${index + 1}`} className="w-full rounded-lg object-cover" />

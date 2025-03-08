@@ -5,35 +5,74 @@ import { useParams, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import ArtworkCarousel from "@/app/components/ArtworkCarousel";
-import artistsData from "@/app/components/constants/artists.json";
+import { ref, onValue } from "firebase/database";
+import { database } from "@/app/firebase"; // Ensure this path is correct
 
 const ArtistProfilePage = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const id = searchParams.get("id") || params?.id;
   const [artist, setArtist] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (id) {
-      const foundArtist = artistsData.find((artist) => artist.id === parseInt(id));
-      setArtist(foundArtist);
+    if (!id) {
+      setError("No artist ID provided");
+      setLoading(false);
+      return;
     }
+
+    const artistRef = ref(database, `artists/${id}`);
+    const unsubscribe = onValue(artistRef, 
+      (snapshot) => {
+        if (snapshot.exists()) {
+          setArtist({
+            id: snapshot.key,
+            ...snapshot.val()
+          });
+        } else {
+          setError("Artist not found");
+        }
+        setLoading(false);
+      },
+      (error) => {
+        setError("Error fetching artist data");
+        console.error("Firebase error:", error);
+        setLoading(false);
+      }
+    );
+
+    return () => unsubscribe();
   }, [id]);
 
-  if (!artist)
-    return (
-      <div className="flex items-center justify-center min-h-screen w-full bg-gray-200 dark:bg-gray-900 transition-colors duration-300">
-        <div className="text-center space-y-4 w-full max-w-lg px-6">
-          <div className="w-16 h-16 border-4 border-t-transparent border-gray-800 dark:border-gray-300 rounded-full animate-spin mx-auto shadow-lg"></div>
-          <p className="text-3xl font-bold text-gray-800 dark:text-gray-300 tracking-wider">
-            Loading artist data...
-          </p>
-          <p className="text-lg text-gray-700 dark:text-gray-400">
-            Please wait a moment while we fetch the artist&apos;s information.
-          </p>
-        </div>
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-screen w-full bg-gray-200 dark:bg-gray-900 transition-colors duration-300">
+      <div className="text-center space-y-4 w-full max-w-lg px-6">
+        <div className="w-16 h-16 border-4 border-t-transparent border-gray-800 dark:border-gray-300 rounded-full animate-spin mx-auto shadow-lg"></div>
+        <p className="text-3xl font-bold text-gray-800 dark:text-gray-300 tracking-wider">
+          Loading Artist Profile
+        </p>
+        <p className="text-lg text-gray-700 dark:text-gray-400">
+          Connecting to our art database...
+        </p>
       </div>
-    );
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex items-center justify-center min-h-screen w-full bg-gray-200 dark:bg-gray-900">
+      <div className="text-center space-y-4 max-w-lg px-6">
+        <div className="text-6xl">⚠️</div>
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-300">
+          {error}
+        </h2>
+        <p className="text-lg text-gray-700 dark:text-gray-400">
+          Please check the artist ID or try again later
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="w-full bg-gray-100 pt-24 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-200 transition-colors duration-300 font-[Poppins]">
@@ -80,7 +119,7 @@ const ArtistProfilePage = () => {
 
       {/* Artworks Carousel Section */}
       <section className="w-full bg-gray-100 dark:bg-gray-900 px-4 sm:px-6 lg:px-8 py-8 overflow-hidden transition-colors duration-300">
-        <ArtworkCarousel artworks={artist.artworks} />
+        <ArtworkCarousel artworks={artist.artworks || []} />
       </section>
     </div>
   );
@@ -88,7 +127,14 @@ const ArtistProfilePage = () => {
 
 export default function ArtistProfilePageWithSuspense() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen w-full bg-gray-200 dark:bg-gray-900">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-t-transparent border-gray-800 dark:border-gray-300 rounded-full animate-spin mx-auto"></div>
+          <p className="text-xl text-gray-800 dark:text-gray-300">Initializing artist profile...</p>
+        </div>
+      </div>
+    }>
       <ArtistProfilePage />
     </Suspense>
   );
