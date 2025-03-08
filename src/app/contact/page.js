@@ -28,6 +28,15 @@ const ContactPage = () => {
   const formRef = useRef(null);
   const mapRef = useRef(null);
 
+  // Form handlers
+  const handleContactTypeChange = (e) => {
+    setSelectedContactType(e.target.value);
+  };
+
+  const handleFormDataChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   useEffect(() => {
     // Form animations
     gsap.from(".contact-form", {
@@ -57,17 +66,19 @@ const ContactPage = () => {
     });
 
     // Map animation
-    gsap.from(mapRef.current, {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: mapRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    if (mapRef.current) {
+      gsap.from(mapRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: mapRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    }
   }, []);
 
   const handleSubmit = async (e) => {
