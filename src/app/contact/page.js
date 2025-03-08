@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import emailjs from "emailjs-com";
+import emailjs from '@emailjs/browser';
 import dynamic from "next/dynamic";
 import { FaUser, FaEnvelope, FaCommentDots, FaDonate, FaCalendarAlt, FaClock, FaUsers, FaSpinner } from "react-icons/fa";
 import gsap from "gsap";
