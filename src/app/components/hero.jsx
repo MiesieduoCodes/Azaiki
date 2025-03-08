@@ -1,21 +1,38 @@
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { useEffect, useRef } from "react";
+import Lenis from "lenis";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 
 export const SmoothScrollHero = () => {
+  const lenisRef = useRef(null);
+
+  useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      lerp: 0.05,
+      smoothWheel: true,
+      syncTouch: true,
+    });
+
+    lenisRef.current = lenis;
+
+    // RAF loop for Lenis
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+
+    // Cleanup
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="dark:bg-zinc-950 bg-amber-200">
-      <ReactLenis
-        root
-        options={{
-          lerp: 0.05,
-          smoothWheel: true,
-          syncTouch: true
-        }}
-      >
-        <Hero />
-        <Schedule />
-      </ReactLenis>
+      <Hero />
+      <Schedule />
     </div>
   );
 };
@@ -161,7 +178,7 @@ const Schedule = () => {
       transition={{ ease: "easeInOut", duration: 0.75 }}
     >
       {[
-         {
+        {
           image: "https://plus.unsplash.com/premium_photo-1715457841520-6079d7d9459a?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           title: "Explore Digital Art",
           description:
