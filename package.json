@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.2",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
@@ -18,7 +19,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "daisyui": "^4.12.23",
-    "@emailjs/browser": "^4.3.2",
     "firebase": "^11.2.0",
     "flowbite": "^3.0.0",
     "formidable": "^3.5.2",
