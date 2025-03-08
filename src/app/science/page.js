@@ -1,4 +1,5 @@
 // components/ShuffleHero.js
+"use client";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -44,32 +45,32 @@ const shuffle = (array) => {
 const instituteData = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1519389950473-47c0d5d8d1e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/DSC_1241.jpg",
     description: "Innovative Research Lab"
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1584697964162-8f3f7a4d1a8e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/",
     description: "Collaboration Spaces"
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1584484958257-bdbee1c0e3a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/DSC_1241.jpg",
     description: "Advanced Technology Classroom"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1584395630822-05f0b5b67cb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/",
     description: "Student Projects Showcase"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/DSC_1241.jpg",
     description: "Research Presentation"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1602635039848-54f4f36d8b9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080",
+    src: "/images/",
     description: "Technological Innovations"
   },
 ];
