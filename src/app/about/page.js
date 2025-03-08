@@ -98,7 +98,7 @@ const AzaikiArtGallery = () => {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="https://video.flos5-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQOc55bueLXv2tnvImmRPNToeyGrIzv61GIV1efiPTIBtac9iCm32WroV6N3UHuaDtvb9w1esufMXgRfMX3BYagY.mp4?strext=1&amp;_nc_cat=103&amp;_nc_oc=Adh1qe1V2Xiaq-kcjwPwA3Q8O9ZCkbgRvGfmNFOmpCvnEACp3pULQ7OvasBLBKclKgs&amp;_nc_sid=8bf8fe&amp;_nc_ht=video.flos5-1.fna.fbcdn.net&amp;_nc_ohc=4sZHAj0f65AQ7kNvgHpyaTb&amp;efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5GQUNFQk9PSy4uQzMuNjQwLnN2ZV9zZCIsInhwdl9hc3NldF9pZCI6Mzc3MzI0Njg1OTU5ODQwOSwidmlfdXNlY2FzZV9pZCI6MTAxMjIsImR1cmF0aW9uX3MiOjk0LCJ1cmxnZW5fc291cmNlIjoid3d3In0%3D&amp;ccb=17-1&amp;_nc_zt=28&amp;oh=00_AYGccKDx5wanJNObZithVkD7Hw8H9k4TAnh1K7-H4J_ROQ&amp;oe=67D13C0F" type="video/mp4" />
+            <source src="/videos/AQOc55bueLXv2tnvImmRPNToeyGrIzv61GIV1efiPTIBtac9iCm32WroV6N3UHuaDtvb9w1esufMXgRfMX3BYagY.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-black/50 dark:bg-black/70 transition-colors duration-500" />
         </div>
