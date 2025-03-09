@@ -40,7 +40,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex space-x-4 text-xs md:text-sm">
-          <a href="/support" className="hover:text-yellow-200 transition-colors">miesieduoveria@gmail.com</a>
+          <a href="mailto:info@azaikiartgallery.com" className="hover:text-yellow-200 transition-colors" title="Email us at info@azaikiartgallery.com" aria-label="Email us at info@azaikiartgallery.com">info@azaikiartgallery.com</a>
         </div>
       </div>
 
