@@ -42,14 +42,12 @@ const AdminDashboard = () => {
         categoryRef,
         (snapshot) => {
           const rawData = snapshot.val();
-          console.log(`Fetched data for ${category}:`, rawData); // Debug log
           const formattedData = rawData
             ? Object.keys(rawData).map((key) => ({
                 id: key,
                 ...rawData[key],
               }))
             : [];
-          
           setData((prev) => ({
             ...prev,
             [category]: formattedData,
@@ -118,33 +116,33 @@ const AdminDashboard = () => {
   // Login modal
   if (isLoginModalOpen) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg w-96">
-          <h2 className="text-2xl font-bold mb-6">Admin Login</h2>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-lg w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label className="block mb-2">Email</label>
+              <label className="block mb-2 text-gray-700">Email</label>
               <input
                 type="email"
                 value={credentials.email}
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
             <div className="mb-6">
-              <label className="block mb-2">Password</label>
+              <label className="block mb-2 text-gray-700">Password</label>
               <input
                 type="password"
                 value={credentials.password}
                 onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition-colors"
             >
               Login
             </button>
@@ -168,7 +166,7 @@ const AdminDashboard = () => {
               onClick={() => setActiveCategory(category)}
               className={`w-full text-left p-3 rounded mb-2 ${
                 activeCategory === category ? "bg-blue-600" : "hover:bg-gray-700"
-              }`}
+              } transition-colors`}
             >
               {category}
             </button>
@@ -185,7 +183,7 @@ const AdminDashboard = () => {
               setSelectedItem({});
               setIsModalOpen(true);
             }}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
           >
             Add New
           </button>
@@ -194,55 +192,59 @@ const AdminDashboard = () => {
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data[activeCategory]?.map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-md p-6">
-                {item.image && (
-                  <img
-                    src={item.image}
-                    alt={item.name || item.title}
-                    className="w-full h-48 object-cover rounded mb-4"
-                  />
-                )}
-                <h3 className="text-xl font-semibold mb-2">
-                  {item.name || item.title}
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  {item.description || item.bio}
-                </p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setSelectedItem(item);
-                      setIsModalOpen(true);
-                    }}
-                    className="bg-blue-500 text-white px-3 py-1 rounded"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item.id, activeCategory)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-lg shadow-md">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="p-3 text-left">Name</th>
+                  <th className="p-3 text-left">Role</th>
+                  <th className="p-3 text-left">Quote</th>
+                  <th className="p-3 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data[activeCategory]?.map((item) => (
+                  <tr key={item.id} className="border-b">
+                    <td className="p-3">{item.name || item.title}</td>
+                    <td className="p-3">{item.role || "N/A"}</td>
+                    <td className="p-3">{item.quote || item.description || "N/A"}</td>
+                    <td className="p-3">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            setSelectedItem(item);
+                            setIsModalOpen(true);
+                          }}
+                          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.id, activeCategory)}
+                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>
 
       {/* Edit/Create Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-8 rounded-lg w-96">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white p-8 rounded-lg w-full max-w-md">
             <h2 className="text-2xl font-bold mb-6">
               {selectedItem.id ? "Edit Item" : "Create Item"}
             </h2>
             <form onSubmit={(e) => handleSave(e, activeCategory)}>
               <div className="mb-4">
-                <label className="block mb-2">Title/Name</label>
+                <label className="block mb-2 text-gray-700">Title/Name</label>
                 <input
                   type="text"
                   value={selectedItem.name || selectedItem.title || ""}
@@ -252,12 +254,12 @@ const AdminDashboard = () => {
                       [activeCategory === "testimonials" ? "name" : "title"]: e.target.value,
                     })
                   }
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Description</label>
+                <label className="block mb-2 text-gray-700">Description</label>
                 <textarea
                   value={selectedItem.description || selectedItem.bio || ""}
                   onChange={(e) =>
@@ -266,32 +268,32 @@ const AdminDashboard = () => {
                       [activeCategory === "testimonials" ? "quote" : "description"]: e.target.value,
                     })
                   }
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="4"
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-2">Image URL</label>
+                <label className="block mb-2 text-gray-700">Image URL</label>
                 <input
                   type="text"
                   value={selectedItem.image || ""}
                   onChange={(e) =>
                     setSelectedItem({ ...selectedItem, image: e.target.value })
                   }
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div className="flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
+                  className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
                 >
                   Save
                 </button>
