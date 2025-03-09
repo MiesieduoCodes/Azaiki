@@ -40,7 +40,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex space-x-4 text-xs md:text-sm">
-          <a href="/contact" className="hover:text-yellow-200 transition-colors">+2349060462206</a>
           <a href="/support" className="hover:text-yellow-200 transition-colors">miesieduoveria@gmail.com</a>
         </div>
       </div>
