@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -20,7 +20,7 @@ const Footer = () => {
         scrollTrigger: {
           trigger: ".footer-section",
           start: "top 80%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none", // Only play the animation once
         },
       }
     );
