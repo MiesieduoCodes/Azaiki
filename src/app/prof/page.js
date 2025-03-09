@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaEnvelope, FaLinkedin, FaBook, FaAward, FaGlobe } from 'react-icons/fa';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 const Page = () => {
   // Profile data defined directly within the component
@@ -32,7 +33,7 @@ const Page = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="text-black dark:text-gray-300 min-h-screen">
+    <div className="text-gray-900 dark:text-gray-100 min-h-screen bg-white dark:bg-gray-900 transition-colors duration-500">
       {/* Hero Section with Background Slider */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -50,7 +51,13 @@ const Page = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="w-40 h-40 rounded-full overflow-hidden shadow-xl border-4 border-white"
           >
-            <img src={profileImage} alt={name} className="object-cover w-full h-full" />
+            <Image
+              src={profileImage}
+              alt={name}
+              width={160}
+              height={160}
+              className="object-cover w-full h-full"
+            />
           </motion.div>
 
           {/* Name and Title */}
@@ -78,13 +85,31 @@ const Page = () => {
             transition={{ duration: 0.8, delay: 1.1 }}
             className="mt-6 flex space-x-6"
           >
-            <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+            <a
+              href={socialLinks.email}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+              className="hover:scale-110 transition-transform"
+            >
               <FaEnvelope className="text-white text-3xl" />
             </a>
-            <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+            <a
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="hover:scale-110 transition-transform"
+            >
               <FaLinkedin className="text-white text-3xl" />
             </a>
-            <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition-transform">
+            <a
+              href={socialLinks.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              className="hover:scale-110 transition-transform"
+            >
               <FaSquareXTwitter className="text-white text-3xl" />
             </a>
           </motion.div>
@@ -95,16 +120,18 @@ const Page = () => {
       <motion.div
         ref={ref}
         style={{ opacity, scale }}
-        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-white dark:bg-dark-brown shadow-lg rounded-lg mx-auto max-w-4xl"
+        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-white dark:bg-gray-800 shadow-lg rounded-lg mx-auto max-w-4xl transition-colors duration-500"
       >
-        <h2 className="text-4xl text-black dark:text-gray-300 font-semibold mb-8 text-center">Biography</h2>
-        <p className="text-black dark:text-gray-300 leading-8 text-justify">
+        <h2 className="text-4xl font-semibold mb-8 text-center text-gray-900 dark:text-gray-100">
+          Biography
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 leading-8 text-justify">
           Professor Steve Azaiki is a distinguished scholar, author, and statesman with a lifelong
           commitment to education, public service, and community development. With a career
           spanning decades, he has made significant contributions to academia, politics, and
           philanthropy.
         </p>
-        <p className="text-black dark:text-gray-300 leading-8 text-justify mt-6">
+        <p className="text-gray-700 dark:text-gray-300 leading-8 text-justify mt-6">
           Prof. Steve Azaiki was born in Yenagoa, Bayelsa State. He completed his Ph.D. in
           Agriculture in 1991 and later became a lecturer and research fellow. He is recognized for
           his contributions to education and public service, earning numerous awards, including the
@@ -117,12 +144,12 @@ const Page = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-gray-50 dark:bg-black shadow-lg rounded-lg mx-auto max-w-4xl"
+        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-gray-50 dark:bg-gray-800 shadow-lg rounded-lg mx-auto max-w-4xl transition-colors duration-500"
       >
-        <h2 className="text-4xl font-semibold mb-8 text-center text-black dark:text-gray-300">
+        <h2 className="text-4xl font-semibold mb-8 text-center text-gray-900 dark:text-gray-100">
           Achievements
         </h2>
-        <ul className="list-disc pl-6 text-black dark:text-gray-300 leading-8 space-y-4">
+        <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 leading-8 space-y-4">
           <li className="flex items-start">
             <FaBook className="text-yellow-500 text-2xl mr-4 mt-1" />
             Authored over 10 influential books on social and political development.
@@ -167,19 +194,31 @@ const Page = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-gray-50 dark:bg-black shadow-lg rounded-lg mx-auto max-w-4xl"
+        className="w-full px-4 sm:px-6 lg:px-8 py-16 mt-10 bg-gray-50 dark:bg-gray-800 shadow-lg rounded-lg mx-auto max-w-4xl transition-colors duration-500"
       >
-        <h2 className="text-4xl font-semibold mb-8 text-center text-black dark:text-gray-300">
+        <h2 className="text-4xl font-semibold mb-8 text-center text-gray-900 dark:text-gray-100">
           Get in Touch
         </h2>
         <div className="flex justify-center mt-6 space-x-8">
-          <a href={socialLinks.email} className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110">
+          <a
+            href={socialLinks.email}
+            aria-label="Email"
+            className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110"
+          >
             <FaEnvelope size={32} />
           </a>
-          <a href={socialLinks.linkedin} className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110">
+          <a
+            href={socialLinks.linkedin}
+            aria-label="LinkedIn"
+            className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110"
+          >
             <FaLinkedin size={32} />
           </a>
-          <a href={socialLinks.twitter} className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110">
+          <a
+            href={socialLinks.twitter}
+            aria-label="Twitter"
+            className="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-600 transition-transform hover:scale-110"
+          >
             <FaSquareXTwitter size={32} />
           </a>
         </div>
