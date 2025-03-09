@@ -32,7 +32,7 @@ const Page = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <div className="text-black pt-24 dark:text-gray-300 min-h-screen">
+    <div className="text-black dark:text-gray-300 min-h-screen">
       {/* Hero Section with Background Slider */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
